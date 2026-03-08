@@ -36,9 +36,9 @@
       --desc-label-text:#111827;
       --desc-text:#1F2937;
 
-      --toggle-bg:#F3E8FF;
-      --toggle-text:#7C3AED;
-      --toggle-border:#DDD6FE;
+      --toggle-bg:#0040D1;
+      --toggle-text:#FFFFFF;
+      --toggle-border:#0040D1;
 
       --cta-bg:#F59E0B;
       --cta-text:#FFFFFF;
@@ -315,13 +315,14 @@
       font-weight:900;
       cursor:pointer;
       white-space:nowrap;
+      box-shadow:0 6px 14px rgba(0,64,209,.16);
     }
 
     .method,
     .descBox{
       position:relative;
       margin:0 20px 14px;
-      padding:24px 18px 16px;
+      padding:26px 18px 16px;
       border:2px solid;
       border-radius:16px;
       background:#fff;
@@ -335,12 +336,13 @@
       border-color:var(--desc-border);
     }
 
+    /* 왼쪽 상단 쪽 라벨 */
     .methodLabel,
     .descLabel{
       position:absolute;
       top:-14px;
-      left:50%;
-      transform:translateX(-50%);
+      left:22px;
+      transform:none;
       background:#fff;
       padding:0 10px;
       font-size:14px;
@@ -359,9 +361,9 @@
 
     .methodText{
       color:var(--method-text);
-      font-size:15px;
+      font-size:17px;
       font-weight:900;
-      line-height:1.8;
+      line-height:1.85;
       text-align:left;
       word-break:break-word;
     }
@@ -418,6 +420,13 @@
       font-weight:900;
       text-decoration:underline;
       word-break:break-all;
+    }
+
+    /* --- 입력 시 구분선 */
+    .textDivider{
+      margin:14px 0;
+      border:0;
+      border-top:1px solid #D8DEE9;
     }
 
     .imagePanel{
@@ -602,7 +611,9 @@
       .blockTitle{
         font-size:19px;
       }
-      .methodText,
+      .methodText{
+        font-size:15px;
+      }
       .descText{
         font-size:14px;
       }
@@ -832,6 +843,33 @@
       `;
     }
 
+    function renderRichContent(text, kind) {
+      if (!text) return '';
+
+      const parts = String(text).split('<br>');
+      let html = '';
+      let dividerOpen = false;
+
+      for (const raw of parts) {
+        const line = raw.trim();
+
+        if (line === '---') {
+          if (dividerOpen) {
+            html += '<hr class="textDivider">';
+          } else {
+            html += '<hr class="textDivider">';
+            dividerOpen = true;
+          }
+          continue;
+        }
+
+        dividerOpen = false;
+        html += `<div>${raw}</div>`;
+      }
+
+      return html;
+    }
+
     function renderBlockHtml(block) {
       const type = block.blockType || '';
       const title = block.blockTitle || '';
@@ -862,22 +900,22 @@
 
       const methodHtml = path ? `
         <div class="method">
-          <span class="methodLabel">접속 경로</span>
-          <div class="methodText">${path}</div>
+          <span class="methodLabel">진행 방법</span>
+          <div class="methodText">${renderRichContent(path, 'method')}</div>
         </div>
       ` : '';
 
       const tipHtml = highlight ? `
         <div class="tip">
           <span class="tipBadge">💡 TIP</span>
-          <div class="tipText">${highlight}</div>
+          <div class="tipText">${renderRichContent(highlight, 'tip')}</div>
         </div>
       ` : '';
 
       const descHtml = desc ? `
         <div class="descBox">
-          <span class="descLabel"></span>
-          <div class="descText">${desc}</div>
+          <span class="descLabel">설명</span>
+          <div class="descText">${renderRichContent(desc, 'desc')}</div>
         </div>
       ` : '';
 
@@ -911,7 +949,7 @@
               .split('<br>')
               .map(item => item.trim())
               .filter(Boolean)
-              .map(item => `<li>${item}</li>`)
+              .map(item => item === '---' ? '' : `<li>${item}</li>`)
               .join('')}
           </ul>
         </div>
