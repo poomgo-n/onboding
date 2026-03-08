@@ -20,7 +20,6 @@
       --ok-weak:#ECFDF5;
       --ok-border:#BBF7D0;
 
-      /* TIP - 노랑 계열 */
       --tip-bg:#FFF8E6;
       --tip-border:#F4D38A;
       --tip-badge-bg:#FFE7A8;
@@ -304,19 +303,24 @@
       gap:8px;
     }
 
+    /* 이미지 보기 버튼 */
     .imageToggleBtn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding:0;
-      border:none;
-      background:transparent;
-      color:#0040D1;
-      font-size:22px;
+      min-width:128px;
+      height:42px;
+      padding:0 16px;
+      border:1px solid #0040D1;
+      border-radius:12px;
+      background:#0040D1;
+      color:#FFFFFF;
+      font-size:15px;
       font-weight:900;
-      line-height:1.4;
+      line-height:1;
       cursor:pointer;
       white-space:nowrap;
+      box-shadow:0 8px 16px rgba(0,64,209,.18);
     }
 
     .imagePanel{
@@ -417,9 +421,8 @@
       word-break:break-word;
     }
 
-    /* TIP 위아래 여백 넉넉하게 */
     .tip{
-      margin:8px 20px 18px;
+      margin:10px 20px 18px;
       padding:14px 16px;
       border-radius:14px;
       background:var(--tip-bg);
@@ -612,35 +615,46 @@
       .layout{
         grid-template-columns:1fr;
       }
+
       .sidebar{
         position:static;
       }
+
       .stageTitle{
         font-size:24px;
       }
+
       .blockHead{
         flex-wrap:wrap;
         align-items:flex-start;
       }
+
       .blockTitle{
         font-size:19px;
       }
+
       .headActions{
         width:100%;
         justify-content:flex-end;
       }
+
       .imageToggleBtn{
-        font-size:18px;
+        width:100%;
+        font-size:14px;
       }
+
       .methodText{
         font-size:15px;
       }
+
       .descText{
         font-size:14px;
       }
+
       .tipText{
         font-size:14px;
       }
+
       .linkBtn,
       .nextBtn{
         width:100%;
