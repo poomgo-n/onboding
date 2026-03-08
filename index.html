@@ -15,20 +15,19 @@
 
       --primary:#0040D1;
       --primary-weak:#EEF4FF;
-      --primary-soft:#F8FAFF;
 
       --ok:#16A34A;
       --ok-weak:#ECFDF5;
       --ok-border:#BBF7D0;
 
-      --tip-line:#60A5FA;
-      --tip-badge-bg:#EEF4FF;
+      --tip-bg:#F8FBFF;
+      --tip-border:#D9E8FF;
+      --tip-badge-bg:#EAF2FF;
       --tip-badge-text:#1D4ED8;
       --tip-text:#1E3A8A;
 
-      --method-line:#D9E2F2;
       --method-label:#0040D1;
-      --method-text:#334155;
+      --method-text:#111827;
 
       --shadow:0 8px 24px rgba(15,23,42,.05);
       --radius:18px;
@@ -153,7 +152,6 @@
       border-radius:14px;
       padding:12px;
       background:#fff;
-      transition:.15s ease;
     }
 
     .stepNavItem.done{
@@ -272,14 +270,13 @@
     }
 
     .tip{
-      margin:0 20px 16px;
-      padding:16px 18px;
-      border-radius:16px;
-      background:#fff;
-      border:1px solid #E8EEF8;
-      border-left:4px solid var(--tip-line);
+      margin:0 20px 14px;
+      padding:12px 14px;
+      border-radius:12px;
+      background:var(--tip-bg);
+      border:1px solid var(--tip-border);
       display:flex;
-      gap:12px;
+      gap:10px;
       align-items:flex-start;
     }
 
@@ -287,13 +284,13 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-width:64px;
-      height:28px;
-      padding:0 10px;
+      min-width:auto;
+      height:24px;
+      padding:0 8px;
       border-radius:999px;
       background:var(--tip-badge-bg);
       color:var(--tip-badge-text);
-      font-size:12px;
+      font-size:11px;
       font-weight:900;
       flex:0 0 auto;
       margin-top:2px;
@@ -301,27 +298,26 @@
 
     .tipText{
       color:var(--tip-text);
-      font-size:14px;
-      font-weight:900;
-      line-height:1.8;
+      font-size:13px;
+      font-weight:800;
+      line-height:1.7;
       word-break:break-word;
     }
 
     .method{
-      margin:0 20px 16px;
-      padding:14px 0;
-      border-top:1px solid var(--method-line);
-      border-bottom:1px solid var(--method-line);
+      margin:0 20px 14px;
+      padding:0;
       display:flex;
-      gap:12px;
+      gap:10px;
       align-items:flex-start;
+      border:none;
     }
 
     .methodLabel{
       color:var(--method-label);
       font-size:13px;
       font-weight:900;
-      line-height:1.75;
+      line-height:1.7;
       flex:0 0 auto;
       white-space:nowrap;
     }
@@ -329,8 +325,8 @@
     .methodText{
       color:var(--method-text);
       font-size:15px;
-      font-weight:800;
-      line-height:1.75;
+      font-weight:900;
+      line-height:1.7;
       word-break:break-word;
     }
 
@@ -354,7 +350,7 @@
     }
 
     .imgWrap{
-      padding:0 20px 20px;
+      padding:4px 20px 20px;
       background:#fff;
     }
 
