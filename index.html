@@ -84,6 +84,137 @@
       line-height:1.7;
     }
 
+    .introCard,
+    .formCard{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      padding:24px;
+      margin-bottom:18px;
+    }
+
+    .introTitle,
+    .formTitle{
+      margin:0 0 10px;
+      font-size:24px;
+      font-weight:900;
+    }
+
+    .introDesc{
+      margin:0 0 18px;
+      color:#374151;
+      font-size:15px;
+      line-height:1.8;
+      font-weight:700;
+    }
+
+    .primaryBtn,
+    .secondaryBtn,
+    .submitBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:220px;
+      height:48px;
+      padding:0 18px;
+      border-radius:12px;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+      font-weight:900;
+      text-decoration:none;
+    }
+
+    .primaryBtn{
+      background:#0040D1;
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,64,209,.16);
+    }
+
+    .secondaryBtn{
+      background:#fff;
+      color:#0040D1;
+      border:1px solid #0040D1;
+    }
+
+    .submitBtn{
+      background:#16A34A;
+      color:#fff;
+      box-shadow:0 8px 18px rgba(22,163,74,.14);
+    }
+
+    .formGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .label{
+      font-size:14px;
+      font-weight:900;
+      color:#111827;
+      line-height:1.6;
+    }
+
+    .helpText{
+      margin-top:-2px;
+      color:#6B7280;
+      font-size:13px;
+      line-height:1.7;
+      font-weight:700;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    select{
+      width:100%;
+      height:48px;
+      padding:0 14px;
+      border:1px solid #D7DFEA;
+      border-radius:12px;
+      background:#fff;
+      font-size:14px;
+      color:#111827;
+      outline:none;
+    }
+
+    .actionRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    .successBox{
+      margin-top:18px;
+      padding:16px 18px;
+      border:1px solid #BBF7D0;
+      background:#ECFDF5;
+      border-radius:14px;
+      color:#166534;
+      font-size:15px;
+      font-weight:800;
+      line-height:1.8;
+    }
+
     .progressInline{
       margin-top:14px;
       padding:14px 16px;
@@ -138,9 +269,9 @@
     }
 
     .card{
-      background:var(--card);
+      background:#fff;
       border:1px solid var(--line);
-      border-radius:var(--radius);
+      border-radius:18px;
       box-shadow:var(--shadow);
     }
 
@@ -171,8 +302,8 @@
     }
 
     .stepNavItem.done{
-      background:var(--ok-weak);
-      border-color:var(--ok-border);
+      background:#ECFDF5;
+      border-color:#BBF7D0;
     }
 
     .stepNavItem.current{
@@ -240,8 +371,8 @@
       height:34px;
       padding:0 12px;
       border-radius:999px;
-      background:var(--primary-weak);
-      color:var(--primary);
+      background:#EEF4FF;
+      color:#0040D1;
       font-size:12px;
       font-weight:900;
       flex:0 0 auto;
@@ -303,7 +434,6 @@
       gap:8px;
     }
 
-    /* 이미지 보기 버튼 */
     .imageToggleBtn{
       display:inline-flex;
       align-items:center;
@@ -323,13 +453,8 @@
       box-shadow:0 8px 16px rgba(0,64,209,.18);
     }
 
-    .imagePanel{
-      display:none;
-    }
-
-    .imagePanel.open{
-      display:block;
-    }
+    .imagePanel{ display:none; }
+    .imagePanel.open{ display:block; }
 
     .imgWrap{
       padding:0 20px 20px;
@@ -363,30 +488,22 @@
       background:#fff;
     }
 
-    .method{
-      border-color:var(--method-border);
-    }
-
+    .method{ border-color:#D1D5DB; }
     .method.platform-poomgo{
-      background:var(--method-poomgo-bg);
-      border-color:var(--method-poomgo-border);
+      background:rgba(0,64,209,.08);
+      border-color:rgba(0,64,209,.24);
     }
-
     .method.platform-naver{
-      background:var(--method-naver-bg);
-      border-color:var(--method-naver-border);
+      background:rgba(3,199,90,.10);
+      border-color:rgba(3,199,90,.28);
     }
-
-    .descBox{
-      border-color:var(--desc-border);
-    }
+    .descBox{ border-color:#D8DEE9; }
 
     .methodLabel,
     .descLabel{
       position:absolute;
       top:-14px;
       left:22px;
-      transform:none;
       background:#fff;
       padding:0 10px;
       font-size:14px;
@@ -395,16 +512,8 @@
       white-space:nowrap;
     }
 
-    .methodLabel{
-      color:var(--method-label-text);
-    }
-
-    .descLabel{
-      color:var(--desc-label-text);
-    }
-
     .methodText{
-      color:var(--method-text);
+      color:#1F2937;
       font-size:17px;
       font-weight:400;
       line-height:1.85;
@@ -413,7 +522,7 @@
     }
 
     .descText{
-      color:var(--desc-text);
+      color:#1F2937;
       font-size:15px;
       font-weight:800;
       line-height:1.9;
@@ -425,8 +534,8 @@
       margin:10px 20px 18px;
       padding:14px 16px;
       border-radius:14px;
-      background:var(--tip-bg);
-      border:1px solid var(--tip-border);
+      background:#FFF8E6;
+      border:1px solid #F4D38A;
       display:flex;
       gap:10px;
       align-items:flex-start;
@@ -440,8 +549,8 @@
       height:26px;
       padding:0 9px;
       border-radius:999px;
-      background:var(--tip-badge-bg);
-      color:var(--tip-badge-text);
+      background:#FFE7A8;
+      color:#8A4B00;
       font-size:12px;
       font-weight:900;
       flex:0 0 auto;
@@ -449,7 +558,7 @@
     }
 
     .tipText{
-      color:var(--tip-text);
+      color:#7A3E00;
       font-size:15px;
       font-weight:800;
       line-height:1.8;
@@ -458,9 +567,8 @@
 
     .methodText a,
     .descText a,
-    .tipText a,
-    .checklist a{
-      color:var(--primary);
+    .tipText a{
+      color:#0040D1;
       font-weight:900;
       text-decoration:underline;
       word-break:break-all;
@@ -488,30 +596,13 @@
       min-height:52px;
       padding:0 22px;
       border-radius:14px;
-      background:var(--cta-bg);
-      color:var(--cta-text);
+      background:#F59E0B;
+      color:#FFFFFF;
       font-size:15px;
       font-weight:900;
       text-decoration:none;
       box-shadow:0 8px 18px rgba(245,158,11,.16);
       text-align:center;
-    }
-
-    .checklist{
-      padding:0 20px 20px;
-    }
-
-    .checklist ul{
-      margin:0;
-      padding-left:22px;
-    }
-
-    .checklist li{
-      margin-bottom:10px;
-      color:#1F2937;
-      font-size:15px;
-      font-weight:800;
-      line-height:1.8;
     }
 
     .stageFooter{
@@ -530,7 +621,7 @@
       padding:0 24px;
       border:none;
       border-radius:14px;
-      background:var(--ok);
+      background:#16A34A;
       color:#fff;
       font-size:15px;
       font-weight:900;
@@ -541,7 +632,7 @@
     .empty{
       padding:40px 20px;
       text-align:center;
-      color:var(--muted);
+      color:#6B7280;
       font-size:14px;
       font-weight:800;
     }
@@ -549,8 +640,8 @@
     .finalMsg{
       margin-top:14px;
       padding:18px;
-      border:1px solid var(--ok-border);
-      background:var(--ok-weak);
+      border:1px solid #BBF7D0;
+      background:#ECFDF5;
       border-radius:16px;
       display:none;
     }
@@ -574,17 +665,22 @@
       z-index:50;
     }
 
+    .modal,
+    .confirmModal{
+      width:min(720px, 96vw);
+      background:#fff;
+      border-radius:20px;
+      box-shadow:0 24px 48px rgba(15,23,42,.16);
+      overflow:hidden;
+    }
+
     .modal{
       width:min(1280px, 98vw);
       max-height:94vh;
       overflow:auto;
-      background:#fff;
-      border-radius:22px;
     }
 
     .modalHead{
-      position:sticky;
-      top:0;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -596,7 +692,7 @@
 
     .modalTitle{
       margin:0;
-      font-size:14px;
+      font-size:16px;
       font-weight:900;
     }
 
@@ -611,54 +707,48 @@
       border:1px solid var(--line);
     }
 
+    .confirmList{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .confirmItem{
+      padding:12px 14px;
+      border:1px solid #E5EAF2;
+      border-radius:12px;
+      background:#F9FBFF;
+    }
+
+    .confirmKey{
+      font-size:12px;
+      font-weight:900;
+      color:#6B7280;
+      margin-bottom:4px;
+    }
+
+    .confirmValue{
+      font-size:14px;
+      font-weight:800;
+      color:#111827;
+      line-height:1.7;
+      word-break:break-word;
+    }
+
     @media (max-width: 980px){
-      .layout{
-        grid-template-columns:1fr;
-      }
-
-      .sidebar{
-        position:static;
-      }
-
-      .stageTitle{
-        font-size:24px;
-      }
-
-      .blockHead{
-        flex-wrap:wrap;
-        align-items:flex-start;
-      }
-
-      .blockTitle{
-        font-size:19px;
-      }
-
-      .headActions{
-        width:100%;
-        justify-content:flex-end;
-      }
-
-      .imageToggleBtn{
-        width:100%;
-        font-size:14px;
-      }
-
-      .methodText{
-        font-size:15px;
-      }
-
-      .descText{
-        font-size:14px;
-      }
-
-      .tipText{
-        font-size:14px;
-      }
-
-      .linkBtn,
-      .nextBtn{
-        width:100%;
-      }
+      .layout{ grid-template-columns:1fr; }
+      .sidebar{ position:static; }
+      .formGrid{ grid-template-columns:1fr; }
+      .stageTitle{ font-size:24px; }
+      .blockHead{ flex-wrap:wrap; align-items:flex-start; }
+      .blockTitle{ font-size:19px; }
+      .headActions{ width:100%; justify-content:flex-end; }
+      .imageToggleBtn{ width:100%; font-size:14px; }
+      .methodText{ font-size:15px; }
+      .descText{ font-size:14px; }
+      .tipText{ font-size:14px; }
+      .linkBtn, .nextBtn, .primaryBtn, .secondaryBtn, .submitBtn{ width:100%; }
+      .actionRow{ flex-direction:column; }
     }
   </style>
 </head>
@@ -667,7 +757,91 @@
     <div class="top">
       <h1 class="title" id="pageTitle">온보딩 가이드</h1>
       <p class="sub" id="pageSubtitle">데이터를 불러오는 중입니다.</p>
+    </div>
 
+    <!-- 첫 진입 카드 -->
+    <section class="introCard" id="introCard">
+      <h2 class="introTitle">물류사 질의 사항 입력</h2>
+      <p class="introDesc">
+        온보딩 진행 전 기본 운영 정보를 먼저 입력해주세요.<br>
+        제출 완료 후 N배송 세팅 가이드를 확인할 수 있습니다.
+      </p>
+      <div class="actionRow">
+        <button type="button" class="primaryBtn" id="openInquiryBtn">물류사 질의 사항 입력하러 가기</button>
+      </div>
+    </section>
+
+    <!-- 입력 폼 -->
+    <section class="formCard hidden" id="inquiryFormCard">
+      <h2 class="formTitle">물류사 질의 사항 입력</h2>
+
+      <div class="formGrid">
+        <div class="field full">
+          <label class="label">스마트스토어 주소</label>
+          <input type="text" id="smartStoreUrl" placeholder="https://smartstore.naver.com/..." />
+        </div>
+
+        <div class="field">
+          <label class="label">초도 입고 예정일</label>
+          <input type="date" id="firstInboundDate" />
+        </div>
+
+        <div class="field">
+          <label class="label">운영 예정 상품(SKU) 수량</label>
+          <input type="number" id="skuCount" min="0" placeholder="예: 120" />
+        </div>
+
+        <div class="field">
+          <label class="label">월 보관 PLT 수량</label>
+          <input type="number" id="pltCount" min="0" placeholder="예: 3" />
+        </div>
+
+        <div class="field">
+          <label class="label">반품지 정보</label>
+          <select id="returnInfo">
+            <option value="">선택해주세요</option>
+            <option value="품고">품고</option>
+            <option value="브랜드사">브랜드사</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label class="label">포장 방법</label>
+          <select id="packingType">
+            <option value="">선택해주세요</option>
+            <option value="기본">기본</option>
+            <option value="에어캡">에어캡</option>
+            <option value="버블페이퍼">버블페이퍼</option>
+          </select>
+          <div class="helpText">
+            * 기본 : 박스 내 위 아래 에어캡이 1장씩 깔린 상태로 출고됩니다.<br>
+            * 에어캡 : 제품을 에어캡으로 포장하여 박스에 포장됩니다.<br>
+            * 버블페이퍼 : 제품을 버블페이퍼로 포장하여 박스에 포장됩니다.
+          </div>
+        </div>
+
+        <div class="field full">
+          <label class="label">품고 시스템 사용 메일 계정 주소를 입력해주세요.</label>
+          <input type="email" id="systemEmail" placeholder="example@company.com" />
+        </div>
+      </div>
+
+      <div class="actionRow">
+        <button type="button" class="secondaryBtn" id="cancelInquiryBtn">닫기</button>
+        <button type="button" class="submitBtn" id="previewSubmitBtn">제출 전 확인</button>
+      </div>
+
+      <div class="successBox hidden" id="submitSuccessBox">
+        질의 사항 입력이 완료되었습니다.<br>
+        아래 버튼을 눌러 N배송 세팅 가이드를 확인해주세요.
+        <div class="actionRow" style="margin-top:14px;">
+          <button type="button" class="primaryBtn" id="showGuideBtn">N배송 세팅 가이드 보기</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 실제 가이드 -->
+    <section class="hidden" id="guideSection">
       <div class="progressInline">
         <div class="progressHead">
           <p class="progressTitle">진행률</p>
@@ -675,32 +849,53 @@
         </div>
         <div class="bar"><div class="barFill" id="barFill"></div></div>
       </div>
-    </div>
 
-    <div class="layout">
-      <aside class="card sidebar">
-        <p class="sidebarTitle" id="clientNameBox">고객사 확인 중</p>
-        <div class="stepNav" id="stepNav"></div>
-      </aside>
+      <div class="layout" style="margin-top:16px;">
+        <aside class="card sidebar">
+          <p class="sidebarTitle" id="clientNameBox">고객사 확인 중</p>
+          <div class="stepNav" id="stepNav"></div>
+        </aside>
 
-      <main class="card main">
-        <div id="currentStageArea"></div>
+        <main class="card main">
+          <div id="currentStageArea"></div>
 
-        <div class="finalMsg" id="finalMsg">
-          <p>✅ 모든 온보딩 단계를 완료했습니다. 담당자에게 완료 여부를 공유해주세요.</p>
-        </div>
-      </main>
-    </div>
+          <div class="finalMsg" id="finalMsg">
+            <p>✅ 모든 온보딩 단계를 완료했습니다. 담당자에게 완료 여부를 공유해주세요.</p>
+          </div>
+        </main>
+      </div>
+    </section>
   </div>
 
+  <!-- 이미지 확대 -->
   <div class="modalBack" id="zoomBack">
     <div class="modal">
       <div class="modalHead">
         <p class="modalTitle" id="zoomTitle">이미지 확대</p>
-        <button class="navBtn" id="zoomClose" type="button">닫기</button>
+        <button class="secondaryBtn" id="zoomClose" type="button" style="min-width:auto;height:40px;">닫기</button>
       </div>
       <div class="modalBody">
         <img class="zoomImg" id="zoomImg" src="" alt="zoom" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 제출 전 확인 팝업 -->
+  <div class="modalBack" id="confirmBack">
+    <div class="confirmModal">
+      <div class="modalHead">
+        <p class="modalTitle">입력 내용 확인</p>
+        <button class="secondaryBtn" id="closeConfirmBtn" type="button" style="min-width:auto;height:40px;">닫기</button>
+      </div>
+      <div class="modalBody">
+        <p style="margin:0 0 12px; font-size:14px; line-height:1.8; color:#374151; font-weight:700;">
+          아래 내용으로 제출하시겠습니까?
+        </p>
+        <div class="confirmList" id="confirmList"></div>
+        <div class="actionRow" style="margin-top:18px;">
+          <button type="button" class="secondaryBtn" id="editAgainBtn">수정하기</button>
+          <button type="button" class="submitBtn" id="finalSubmitBtn">제출하기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -712,9 +907,14 @@
     let groupedSteps = [];
     let completedSteps = [];
     let viewingStepNo = null;
+    let pendingInquiryData = null;
 
     const params = new URLSearchParams(location.search);
     const clientCode = params.get('client') || '';
+
+    function inquiryDoneKey() {
+      return 'onboarding_inquiry_done_' + clientCode;
+    }
 
     function progressKey() {
       return 'onboarding_progress_' + clientCode;
@@ -734,6 +934,14 @@
       localStorage.setItem(progressKey(), JSON.stringify(completedSteps));
     }
 
+    function isInquiryDone() {
+      return localStorage.getItem(inquiryDoneKey()) === 'Y';
+    }
+
+    function setInquiryDone() {
+      localStorage.setItem(inquiryDoneKey(), 'Y');
+    }
+
     function isCompleted(stepNo) {
       return completedSteps.includes(stepNo);
     }
@@ -750,7 +958,7 @@
 
     function loadData() {
       if (!clientCode) {
-        showMainEmpty('고객사 코드가 없습니다. URL 뒤에 ?client=고객사코드 형태로 접속해주세요.');
+        alert('고객사 코드가 없습니다.');
         return;
       }
 
@@ -758,7 +966,8 @@
         payload = data;
         loadProgress();
         buildSteps();
-        renderAll();
+        renderStaticText();
+        renderIntroState();
       };
 
       const script = document.createElement('script');
@@ -766,9 +975,6 @@
         APPS_SCRIPT_WEBAPP_URL +
         '?mode=data&client=' + encodeURIComponent(clientCode) +
         '&callback=renderOnboardingData';
-      script.onerror = function() {
-        showMainEmpty('가이드 데이터를 불러오지 못했습니다. Apps Script URL과 배포 상태를 확인해주세요.');
-      };
       document.body.appendChild(script);
     }
 
@@ -790,25 +996,136 @@
       groupedSteps = Array.from(map.values()).sort((a, b) => a.stepNo - b.stepNo);
     }
 
+    function renderStaticText() {
+      const client = payload && payload.client ? payload.client : null;
+      document.title = client && client.pageTitle ? client.pageTitle : '온보딩 가이드';
+      document.getElementById('pageTitle').textContent = client && client.pageTitle ? client.pageTitle : '온보딩 가이드';
+      document.getElementById('pageSubtitle').textContent = client && client.subtitle ? client.subtitle : '아래 순서대로 진행해주세요.';
+      document.getElementById('clientNameBox').textContent = client && client.clientName ? client.clientName : '고객사';
+    }
+
+    function renderIntroState() {
+      const introCard = document.getElementById('introCard');
+      const formCard = document.getElementById('inquiryFormCard');
+      const guideSection = document.getElementById('guideSection');
+      const successBox = document.getElementById('submitSuccessBox');
+
+      if (isInquiryDone()) {
+        introCard.classList.add('hidden');
+        formCard.classList.remove('hidden');
+        successBox.classList.remove('hidden');
+      } else {
+        introCard.classList.remove('hidden');
+        formCard.classList.add('hidden');
+        successBox.classList.add('hidden');
+      }
+
+      guideSection.classList.add('hidden');
+    }
+
+    function openInquiryForm() {
+      document.getElementById('introCard').classList.add('hidden');
+      document.getElementById('inquiryFormCard').classList.remove('hidden');
+    }
+
+    function closeInquiryForm() {
+      document.getElementById('introCard').classList.remove('hidden');
+      document.getElementById('inquiryFormCard').classList.add('hidden');
+    }
+
+    function getFormData() {
+      return {
+        clientCode: clientCode,
+        smartStoreUrl: document.getElementById('smartStoreUrl').value.trim(),
+        firstInboundDate: document.getElementById('firstInboundDate').value.trim(),
+        skuCount: document.getElementById('skuCount').value.trim(),
+        pltCount: document.getElementById('pltCount').value.trim(),
+        returnInfo: document.getElementById('returnInfo').value.trim(),
+        packingType: document.getElementById('packingType').value.trim(),
+        systemEmail: document.getElementById('systemEmail').value.trim(),
+        userAgent: navigator.userAgent || ''
+      };
+    }
+
+    function validateForm(data) {
+      if (!data.smartStoreUrl) return '스마트스토어 주소를 입력해주세요.';
+      if (!data.firstInboundDate) return '초도 입고 예정일을 선택해주세요.';
+      if (!data.skuCount) return '운영 예정 상품(SKU) 수량을 입력해주세요.';
+      if (!data.pltCount) return '월 보관 PLT 수량을 입력해주세요.';
+      if (!data.returnInfo) return '반품지 정보를 선택해주세요.';
+      if (!data.packingType) return '포장 방법을 선택해주세요.';
+      if (!data.systemEmail) return '품고 시스템 사용 메일 계정 주소를 입력해주세요.';
+      return '';
+    }
+
+    function openConfirmModal(data) {
+      const list = document.getElementById('confirmList');
+      list.innerHTML = `
+        ${confirmItem('스마트스토어 주소', data.smartStoreUrl)}
+        ${confirmItem('초도 입고 예정일', data.firstInboundDate)}
+        ${confirmItem('운영 예정 상품(SKU) 수량', data.skuCount)}
+        ${confirmItem('월 보관 PLT 수량', data.pltCount)}
+        ${confirmItem('반품지 정보', data.returnInfo)}
+        ${confirmItem('포장 방법', data.packingType)}
+        ${confirmItem('품고 시스템 사용 메일 계정', data.systemEmail)}
+      `;
+      document.getElementById('confirmBack').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function confirmItem(key, value) {
+      return `
+        <div class="confirmItem">
+          <div class="confirmKey">${escapeHtml(key)}</div>
+          <div class="confirmValue">${escapeHtml(value)}</div>
+        </div>
+      `;
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirmBack').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    async function submitInquiry() {
+      if (!pendingInquiryData) return;
+
+      const res = await fetch(APPS_SCRIPT_WEBAPP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          mode: 'submit_inquiry',
+          ...pendingInquiryData
+        })
+      });
+
+      const result = await res.json();
+
+      if (!result.ok) {
+        alert(result.message || '제출 중 오류가 발생했습니다.');
+        return;
+      }
+
+      setInquiryDone();
+      closeConfirmModal();
+      document.getElementById('submitSuccessBox').classList.remove('hidden');
+      alert('질의 사항이 정상 제출되었습니다.');
+    }
+
+    function showGuide() {
+      document.getElementById('guideSection').classList.remove('hidden');
+      renderSidebar();
+      renderCurrentStage();
+      renderProgress();
+      renderFinalMessage();
+      document.getElementById('guideSection').scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+
     function normalizePlatform(value) {
       const v = String(value || '').trim();
       if (v === '품고') return 'platform-poomgo';
       if (v === '네이버') return 'platform-naver';
       return '';
-    }
-
-    function renderAll() {
-      const client = payload && payload.client ? payload.client : null;
-
-      document.title = client && client.pageTitle ? client.pageTitle : '온보딩 가이드';
-      document.getElementById('pageTitle').textContent = client && client.pageTitle ? client.pageTitle : '온보딩 가이드';
-      document.getElementById('pageSubtitle').textContent = client && client.subtitle ? client.subtitle : '아래 순서대로 진행해주세요.';
-      document.getElementById('clientNameBox').textContent = client && client.clientName ? client.clientName : '고객사';
-
-      renderSidebar();
-      renderCurrentStage();
-      renderProgress();
-      renderFinalMessage();
     }
 
     function renderSidebar() {
@@ -835,9 +1152,7 @@
               </div>
               ${done
                 ? `<button class="navBtn" type="button" data-view-step="${step.stepNo}">보기</button>`
-                : (current
-                    ? `<button class="navBtn" type="button" data-view-step="${step.stepNo}">진행중</button>`
-                    : '')
+                : (current ? `<button class="navBtn" type="button" data-view-step="${step.stepNo}">진행중</button>` : '')
               }
             </div>
           </div>
@@ -883,21 +1198,13 @@
 
     function renderRichContent(text) {
       if (!text) return '';
-      const parts = String(text).split('<br>');
-      let html = '';
-      for (const raw of parts) {
-        const line = raw.trim();
-        if (line === '---') {
-          html += '<hr class="textDivider">';
-        } else {
-          html += `<div>${raw}</div>`;
-        }
-      }
-      return html;
+      return String(text)
+        .split('<br>')
+        .map(raw => raw.trim() === '---' ? '<hr class="textDivider">' : `<div>${raw}</div>`)
+        .join('');
     }
 
     function renderBlockHtml(block) {
-      const type = block.blockType || '';
       const title = block.blockTitle || '';
       const path = block.path || '';
       const desc = block.desc || '';
@@ -909,86 +1216,52 @@
       const platformClass = normalizePlatform(block.platform);
       const hasImage = !!imageThumb;
 
-      const headHtml = title ? `
-        <div class="blockHead">
-          <div class="blockHeadLeft">
-            <p class="blockTitle">${escapeHtml(title)}</p>
-          </div>
-          <div class="headActions">
-            ${hasImage ? `
-              <button type="button" class="imageToggleBtn" data-toggle-image>
-                이미지 보기
-              </button>
-            ` : ''}
-          </div>
-        </div>
-      ` : '';
-
-      const imageHtml = imageThumb ? `
-        <div class="imagePanel">
-          <div class="imgWrap">
-            <img
-              src="${escapeAttr(imageThumb)}"
-              data-zoom="${escapeAttr(imageZoom || imageThumb)}"
-              data-title="${escapeAttr(title || '이미지')}"
-              alt="${escapeAttr(title || '이미지')}"
-            />
-            <p class="imgHint">이미지를 클릭하면 확대됩니다.</p>
-          </div>
-        </div>
-      ` : '';
-
-      const methodHtml = path ? `
-        <div class="method ${platformClass}">
-          <span class="methodLabel"></span>
-          <div class="methodText">${renderRichContent(path)}</div>
-        </div>
-      ` : '';
-
-      const tipHtml = highlight ? `
-        <div class="tip">
-          <span class="tipBadge">💡TIP</span>
-          <div class="tipText">${renderRichContent(highlight)}</div>
-        </div>
-      ` : '';
-
-      const descHtml = desc ? `
-        <div class="descBox">
-          <span class="descLabel"></span>
-          <div class="descText">${renderRichContent(desc)}</div>
-        </div>
-      ` : '';
-
-      const buttonHtml = buttonText ? `
-        <div class="buttonArea">
-          ${buttonUrl
-            ? `<a class="linkBtn" href="${escapeAttr(buttonUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(buttonText)}</a>`
-            : ''
-          }
-        </div>
-      ` : '';
-
-      const checklistHtml = type === '체크리스트' && desc ? `
-        <div class="checklist">
-          <ul>
-            ${desc
-              .split('<br>')
-              .map(item => item.trim())
-              .filter(Boolean)
-              .map(item => item === '---' ? '' : `<li>${item}</li>`)
-              .join('')}
-          </ul>
-        </div>
-      ` : '';
-
       return `
         <div class="block">
-          ${headHtml}
-          ${imageHtml}
-          ${methodHtml}
-          ${tipHtml}
-          ${type === '체크리스트' ? checklistHtml : descHtml}
-          ${buttonHtml}
+          <div class="blockHead">
+            <div class="blockHeadLeft">
+              <p class="blockTitle">${escapeHtml(title)}</p>
+            </div>
+            <div class="headActions">
+              ${hasImage ? `<button type="button" class="imageToggleBtn" data-toggle-image>이미지 보기</button>` : ''}
+            </div>
+          </div>
+
+          ${imageThumb ? `
+            <div class="imagePanel">
+              <div class="imgWrap">
+                <img src="${escapeAttr(imageThumb)}" data-zoom="${escapeAttr(imageZoom || imageThumb)}" data-title="${escapeAttr(title || '이미지')}" alt="${escapeAttr(title || '이미지')}">
+                <p class="imgHint">이미지를 클릭하면 확대됩니다.</p>
+              </div>
+            </div>
+          ` : ''}
+
+          ${path ? `
+            <div class="method ${platformClass}">
+              <span class="methodLabel">진행 방법</span>
+              <div class="methodText">${renderRichContent(path)}</div>
+            </div>
+          ` : ''}
+
+          ${highlight ? `
+            <div class="tip">
+              <span class="tipBadge">💡 TIP</span>
+              <div class="tipText">${renderRichContent(highlight)}</div>
+            </div>
+          ` : ''}
+
+          ${desc ? `
+            <div class="descBox">
+              <span class="descLabel">설명</span>
+              <div class="descText">${renderRichContent(desc)}</div>
+            </div>
+          ` : ''}
+
+          ${buttonText && buttonUrl ? `
+            <div class="buttonArea">
+              <a class="linkBtn" href="${escapeAttr(buttonUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(buttonText)}</a>
+            </div>
+          ` : ''}
         </div>
       `;
     }
@@ -997,7 +1270,6 @@
       const total = groupedSteps.length;
       const done = completedSteps.filter(stepNo => groupedSteps.some(s => s.stepNo === stepNo)).length;
       const pct = total ? Math.round((done / total) * 100) : 0;
-
       document.getElementById('progressMeta').textContent = done + ' / ' + total + ' 단계 완료';
       document.getElementById('barFill').style.width = pct + '%';
     }
@@ -1014,21 +1286,58 @@
         completedSteps.sort((a, b) => a - b);
         saveProgress();
       }
-
       viewingStepNo = null;
-      renderAll();
-
-      const main = document.querySelector('.main');
-      if (main) {
-        main.scrollIntoView({ behavior:'smooth', block:'start' });
-      }
-    }
-
-    function showMainEmpty(message) {
-      document.getElementById('currentStageArea').innerHTML = '<div class="empty">' + escapeHtml(message) + '</div>';
+      renderSidebar();
+      renderCurrentStage();
+      renderProgress();
+      renderFinalMessage();
     }
 
     document.addEventListener('click', function(e) {
+      const openInquiryBtn = e.target.closest('#openInquiryBtn');
+      if (openInquiryBtn) {
+        openInquiryForm();
+        return;
+      }
+
+      const cancelInquiryBtn = e.target.closest('#cancelInquiryBtn');
+      if (cancelInquiryBtn) {
+        closeInquiryForm();
+        return;
+      }
+
+      const previewSubmitBtn = e.target.closest('#previewSubmitBtn');
+      if (previewSubmitBtn) {
+        const data = getFormData();
+        const msg = validateForm(data);
+        if (msg) {
+          alert(msg);
+          return;
+        }
+        pendingInquiryData = data;
+        openConfirmModal(data);
+        return;
+      }
+
+      const closeConfirmBtn = e.target.closest('#closeConfirmBtn');
+      const editAgainBtn = e.target.closest('#editAgainBtn');
+      if (closeConfirmBtn || editAgainBtn) {
+        closeConfirmModal();
+        return;
+      }
+
+      const finalSubmitBtn = e.target.closest('#finalSubmitBtn');
+      if (finalSubmitBtn) {
+        submitInquiry();
+        return;
+      }
+
+      const showGuideBtn = e.target.closest('#showGuideBtn');
+      if (showGuideBtn) {
+        showGuide();
+        return;
+      }
+
       const imageToggleBtn = e.target.closest('[data-toggle-image]');
       if (imageToggleBtn) {
         const block = imageToggleBtn.closest('.block');
@@ -1043,7 +1352,10 @@
       const viewBtn = e.target.closest('[data-view-step]');
       if (viewBtn) {
         viewingStepNo = Number(viewBtn.getAttribute('data-view-step')) || null;
-        renderAll();
+        renderSidebar();
+        renderCurrentStage();
+        renderProgress();
+        renderFinalMessage();
         return;
       }
 
@@ -1085,7 +1397,10 @@
     });
 
     window.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeZoom();
+      if (e.key === 'Escape') {
+        closeZoom();
+        closeConfirmModal();
+      }
     });
 
     function escapeHtml(str) {
