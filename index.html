@@ -349,39 +349,40 @@
       white-space:normal;
     }
 
+    .imageToggleWrap{
+      padding:0 20px 16px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .imageToggleBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:180px;
+      height:44px;
+      padding:0 16px;
+      border:1px solid #DCE3EC;
+      border-radius:12px;
+      background:#fff;
+      color:#334155;
+      font-size:14px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .imagePanel{
+      display:none;
+    }
+
+    .imagePanel.open{
+      display:block;
+    }
+
     .imgWrap{
-      padding:4px 20px 20px;
+      padding:0 20px 20px;
       background:#fff;
     }
-    .imageToggleWrap{
-  padding:0 20px 20px;
-  display:flex;
-  justify-content:center;
-}
-
-.imageToggleBtn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:180px;
-  height:44px;
-  padding:0 16px;
-  border:1px solid #DCE3EC;
-  border-radius:12px;
-  background:#fff;
-  color:#334155;
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.imagePanel{
-  display:none;
-}
-
-.imagePanel.open{
-  display:block;
-}
 
     .imgWrap img{
       width:100%;
@@ -560,7 +561,8 @@
         font-size:14px;
       }
       .linkBtn,
-      .nextBtn{
+      .nextBtn,
+      .imageToggleBtn{
         width:100%;
       }
     }
@@ -814,14 +816,21 @@
       ` : '';
 
       const imageHtml = imageThumb ? `
-        <div class="imgWrap">
-          <img
-            src="${escapeAttr(imageThumb)}"
-            data-zoom="${escapeAttr(imageZoom || imageThumb)}"
-            data-title="${escapeAttr(title || '이미지')}"
-            alt="${escapeAttr(title || '이미지')}"
-          />
-          <p class="imgHint">이미지를 클릭하면 확대됩니다.</p>
+        <div class="imageToggleWrap">
+          <button type="button" class="imageToggleBtn" data-toggle-image>
+            이미지 보기
+          </button>
+        </div>
+        <div class="imagePanel">
+          <div class="imgWrap">
+            <img
+              src="${escapeAttr(imageThumb)}"
+              data-zoom="${escapeAttr(imageZoom || imageThumb)}"
+              data-title="${escapeAttr(title || '이미지')}"
+              alt="${escapeAttr(title || '이미지')}"
+            />
+            <p class="imgHint">이미지를 클릭하면 확대됩니다.</p>
+          </div>
         </div>
       ` : '';
 
@@ -895,6 +904,17 @@
     }
 
     document.addEventListener('click', function(e) {
+      const imageToggleBtn = e.target.closest('[data-toggle-image]');
+      if (imageToggleBtn) {
+        const block = imageToggleBtn.closest('.block');
+        const panel = block ? block.querySelector('.imagePanel') : null;
+        if (!panel) return;
+
+        panel.classList.toggle('open');
+        imageToggleBtn.textContent = panel.classList.contains('open') ? '이미지 숨기기' : '이미지 보기';
+        return;
+      }
+
       const viewBtn = e.target.closest('[data-view-step]');
       if (viewBtn) {
         viewingStepNo = Number(viewBtn.getAttribute('data-view-step')) || null;
