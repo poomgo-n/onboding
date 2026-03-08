@@ -15,7 +15,6 @@
 
       --primary:#0040D1;
       --primary-weak:#EEF4FF;
-      --primary-soft:#F8FAFF;
 
       --ok:#16A34A;
       --ok-weak:#ECFDF5;
@@ -27,15 +26,14 @@
       --tip-badge-text:#1D4ED8;
       --tip-text:#1E3A8A;
 
-      --method-bg:#F5F8FF;
-      --method-border:#D9E4FF;
-      --method-badge-bg:#EAF1FF;
-      --method-badge-text:#1D4ED8;
-      --method-text:#1E3A8A;
+      --method-border:#D1D5DB;
+      --method-label-bg:#FFFFFF;
+      --method-label-text:#111827;
+      --method-text:#1F2937;
 
-      --toggle-bg:#EAF1FF;
-      --toggle-text:#0040D1;
-      --toggle-border:#CFE0FF;
+      --toggle-bg:#F3E8FF;
+      --toggle-text:#7C3AED;
+      --toggle-border:#DDD6FE;
 
       --shadow:0 8px 24px rgba(15,23,42,.05);
       --radius:18px;
@@ -346,32 +344,27 @@
       word-break:break-word;
     }
 
+    /* 핵심: 진행방법 라벨이 상단 중앙 */
     .method{
+      position:relative;
       margin:0 20px 14px;
-      padding:12px 14px;
-      border-radius:12px;
-      background:var(--method-bg);
-      border:1px solid var(--method-border);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      text-align:left;
+      padding:24px 18px 16px;
+      border:2px solid var(--method-border);
+      border-radius:16px;
+      background:#fff;
     }
 
-    .methodBadge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:66px;
-      height:26px;
+    .methodLabel{
+      position:absolute;
+      top:-14px;
+      left:50%;
+      transform:translateX(-50%);
+      background:var(--method-label-bg);
+      color:var(--method-label-text);
       padding:0 10px;
-      border-radius:999px;
-      background:var(--method-badge-bg);
-      color:var(--method-badge-text);
-      font-size:11px;
+      font-size:14px;
       font-weight:900;
-      flex:0 0 auto;
+      line-height:1.4;
       white-space:nowrap;
     }
 
@@ -379,7 +372,8 @@
       color:var(--method-text);
       font-size:15px;
       font-weight:900;
-      line-height:1.7;
+      line-height:1.8;
+      text-align:left;
       word-break:break-word;
     }
 
@@ -448,12 +442,12 @@
       min-height:52px;
       padding:0 22px;
       border-radius:14px;
-      background:var(--primary);
+      background:#F59E0B;
       color:#fff;
       font-size:15px;
       font-weight:900;
       text-decoration:none;
-      box-shadow:0 8px 18px rgba(0,64,209,.14);
+      box-shadow:0 8px 18px rgba(245,158,11,.16);
       text-align:center;
     }
 
@@ -583,11 +577,6 @@
       }
       .blockTitle{
         font-size:19px;
-      }
-      .method{
-        flex-direction:column;
-        align-items:flex-start;
-        text-align:left;
       }
       .methodText{
         font-size:14px;
@@ -855,7 +844,7 @@
 
       const methodHtml = path ? `
         <div class="method">
-          <span class="methodBadge">진행방법</span>
+          <span class="methodLabel">진행 방법</span>
           <div class="methodText">${path}</div>
         </div>
       ` : '';
