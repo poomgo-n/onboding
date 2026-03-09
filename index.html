@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>N배송 세팅 과정</title>
+  <title>품고 셀프 온보딩</title>
 
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
@@ -91,7 +91,6 @@
       box-shadow:var(--shadow);
     }
 
-    /* left */
     .sidebar{
       padding:16px;
       position:sticky;
@@ -240,7 +239,6 @@
       font-size:12px;
     }
 
-    /* right */
     .main{
       padding:24px 28px;
       min-width:0;
@@ -351,8 +349,8 @@
     }
 
     .flow-list{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      display:flex;
+      flex-direction:column;
       gap:10px;
       margin:0;
       padding:0;
@@ -361,18 +359,21 @@
 
     .flow-list li{
       display:flex;
-      gap:10px;
+      gap:12px;
       align-items:flex-start;
-      padding:14px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background:#fafafa;
+      padding:14px 0;
+      border-bottom:1px solid #eef2f7;
       min-width:0;
     }
 
+    .flow-list li:last-child{
+      border-bottom:none;
+      padding-bottom:0;
+    }
+
     .flow-num{
-      width:24px;
-      height:24px;
+      width:28px;
+      height:28px;
       border-radius:999px;
       display:grid;
       place-items:center;
@@ -380,12 +381,12 @@
       color:#fff;
       font-size:12px;
       font-weight:800;
-      flex:0 0 24px;
+      flex:0 0 28px;
       margin-top:1px;
     }
 
     .flow-text{
-      font-size:14px;
+      font-size:15px;
       font-weight:700;
       word-break:break-word;
     }
@@ -537,13 +538,124 @@
       flex-wrap:wrap;
     }
 
-    @media (max-width:1200px){
-      .flow-list{
-        grid-template-columns:1fr 1fr;
-      }
-      .check-area{
-        grid-template-columns:1fr;
-      }
+    /* FAQ modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:1000;
+    }
+
+    .modal.open{
+      display:flex;
+    }
+
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(15,23,42,.48);
+    }
+
+    .modal-panel{
+      position:relative;
+      width:min(760px, 100%);
+      max-height:85vh;
+      overflow:auto;
+      background:#fff;
+      border-radius:24px;
+      border:1px solid var(--line);
+      box-shadow:0 24px 60px rgba(15,23,42,.24);
+      padding:24px;
+    }
+
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .modal-title{
+      margin:0;
+      font-size:24px;
+      line-height:1.2;
+      letter-spacing:-.03em;
+    }
+
+    .modal-sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .icon-btn{
+      border:none;
+      background:#f3f4f6;
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:20px;
+      line-height:1;
+    }
+
+    .faq-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .faq-item{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .faq-q{
+      width:100%;
+      border:none;
+      background:#fff;
+      padding:16px;
+      text-align:left;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:15px;
+    }
+
+    .faq-q:hover{
+      background:#fafafa;
+    }
+
+    .faq-a{
+      display:none;
+      padding:0 16px 16px;
+      color:#374151;
+      font-size:14px;
+      white-space:pre-line;
+      word-break:break-word;
+    }
+
+    .faq-item.open .faq-a{
+      display:block;
+    }
+
+    .faq-item.open .faq-arrow{
+      transform:rotate(180deg);
+    }
+
+    .faq-arrow{
+      transition:transform .2s ease;
+      color:#6b7280;
+      flex:0 0 auto;
     }
 
     @media (max-width:1024px){
@@ -553,7 +665,7 @@
       .sidebar{
         position:static;
       }
-      .flow-list{
+      .check-area{
         grid-template-columns:1fr;
       }
     }
@@ -564,6 +676,8 @@
       h1{font-size:24px}
       .hero h2{font-size:23px}
       .guide-section{padding:18px}
+      .modal-panel{padding:18px}
+      .modal-title{font-size:20px}
     }
   </style>
 </head>
@@ -598,6 +712,7 @@
           </div>
 
           <div class="actions">
+            <button class="btn secondary" id="faqBtn" type="button">FAQ 보기</button>
             <button class="btn secondary" id="resetBtn" type="button">체크 초기화</button>
           </div>
         </div>
@@ -629,6 +744,21 @@
           <button class="btn primary" id="nextBtn" type="button">다음 단계</button>
         </div>
       </main>
+    </div>
+  </div>
+
+  <div class="modal" id="faqModal" aria-hidden="true">
+    <div class="modal-backdrop" id="faqBackdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="faqModalTitle">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="faqModalTitle">FAQ</h3>
+          <p class="modal-sub" id="faqModalSub">현재 단계에서 자주 막히는 항목을 정리했습니다.</p>
+        </div>
+        <button class="icon-btn" id="faqCloseBtn" type="button" aria-label="닫기">×</button>
+      </div>
+
+      <div class="faq-list" id="faqList"></div>
     </div>
   </div>
 
@@ -668,6 +798,20 @@
           "고객사 정보 입력 완료",
           "품고 나우 로그인 완료",
           "구성원 추가 완료"
+        ],
+        faqs: [
+          {
+            q: "고객사 등록 버튼이 보이지 않아요.",
+            a: "메일 수신 후 24시간이 경과했거나 링크가 만료된 경우 버튼이 보이지 않을 수 있습니다.\n이 경우 사업자 주소, 브랜드 고객센터 대표번호, 반품지 주소, 담당자명/연락처/이메일 정보를 준비해 별도 전달 후 진행해주세요."
+          },
+          {
+            q: "메일 수신 후 24시간이 지났어요.",
+            a: "등록 링크 사용이 어려울 수 있습니다.\n별도 재등록 또는 수기 확인이 필요할 수 있으므로 지정된 제출 정보 기준으로 전달 후 진행해주세요."
+          },
+          {
+            q: "구성원 추가는 꼭 해야 하나요?",
+            a: "실제 운영에 참여하는 계정이 2인 이상이거나 담당자가 분리되어 있다면 미리 등록하는 것이 좋습니다.\n초기 운영 중 계정 혼선 방지에 도움이 됩니다."
+          }
         ]
       },
       {
@@ -700,6 +844,16 @@
           "판매처 등록 완료",
           "풀필먼트 신청 완료",
           "연동 상태 확인 완료"
+        ],
+        faqs: [
+          {
+            q: "연동 상태가 연동중으로 보이지 않아요.",
+            a: "풀필먼트 신청만 완료하고 실제 연동 반영이 끝나지 않은 경우일 수 있습니다.\n물류사가 품고로 선택되어 있는지 먼저 확인하고, 상태를 다시 확인해주세요."
+          },
+          {
+            q: "타 물류사가 연동중으로 보입니다.",
+            a: "현재 사용하지 않는 타 물류사가 남아있으면 진행이 꼬일 수 있습니다.\n이용하지 않는 물류사는 모두 철회 처리 후 진행해주세요."
+          }
         ]
       },
       {
@@ -728,6 +882,20 @@
           "SKU 등록 전 유의사항 확인 완료",
           "SKU 등록 완료",
           "연결상품매핑 완료"
+        ],
+        faqs: [
+          {
+            q: "바코드가 없는 상품은 어떻게 등록하나요?",
+            a: "실물 바코드가 없는 경우 네이버 바코드를 선택하면 됩니다.\n바코드 미검수 품목은 임의 바코드 입력 또는 네이버 바코드 선택 기준으로 진행해주세요."
+          },
+          {
+            q: "SKU명은 어디까지 자세히 적어야 하나요?",
+            a: "최소한 옵션/호수/색상 등 서로 구분되는 정보가 포함되어야 합니다.\n예: 체리 ❌ / 꽃물 틴트 1호 체리 ✅"
+          },
+          {
+            q: "왜 SKU 유형을 사은품으로 선택하면 안 되나요?",
+            a: "사은품으로 선택하면 품고 전산에 SKU가 정상 등록되지 않기 때문입니다.\n등록 대상은 상품으로 선택해주세요."
+          }
         ]
       },
       {
@@ -750,6 +918,16 @@
         ],
         checks: [
           "입고 가이드 확인 완료"
+        ],
+        faqs: [
+          {
+            q: "입고 기준을 지키지 않으면 어떻게 되나요?",
+            a: "입고가 지연되거나 현장 추가 작업이 발생할 수 있으며, 상황에 따라 추가 비용이 발생할 수 있습니다."
+          },
+          {
+            q: "포장 방식은 왜 꼭 맞춰야 하나요?",
+            a: "입고 검수, 보관, 출고 과정의 작업 효율과 안전성에 직접 영향을 주기 때문입니다.\n특히 파손 우려 상품은 포장 방식 확인이 중요합니다."
+          }
         ]
       },
       {
@@ -779,11 +957,21 @@
           "연결 상품 점검 완료",
           "재고 점검 완료",
           "N배송 설정 완료"
+        ],
+        faqs: [
+          {
+            q: "연결 상품이 누락되면 어떻게 되나요?",
+            a: "연결되지 않은 상품은 정상 출고 대상이 되지 않습니다.\n설정 전 연결 상태를 먼저 점검해주세요."
+          },
+          {
+            q: "재고가 반영되기 전에 N배송 설정을 해도 되나요?",
+            a: "권장하지 않습니다.\n재고 반영 상태를 먼저 확인한 뒤 설정하는 것이 안전합니다."
+          }
         ]
       }
     ];
 
-    const STORAGE_KEY = "poomgo_self_onboarding_v3";
+    const STORAGE_KEY = "poomgo_self_onboarding_v4";
     const state = loadState();
 
     let currentIndex = state.currentIndex ?? 0;
@@ -801,6 +989,14 @@
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const resetBtn = document.getElementById("resetBtn");
+
+    const faqBtn = document.getElementById("faqBtn");
+    const faqModal = document.getElementById("faqModal");
+    const faqBackdrop = document.getElementById("faqBackdrop");
+    const faqCloseBtn = document.getElementById("faqCloseBtn");
+    const faqModalTitle = document.getElementById("faqModalTitle");
+    const faqModalSub = document.getElementById("faqModalSub");
+    const faqList = document.getElementById("faqList");
 
     function loadState() {
       try {
@@ -931,9 +1127,6 @@
 
         checkArea.appendChild(row);
       });
-
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex === DATA.length - 1;
     }
 
     function renderDetail(item) {
@@ -1004,6 +1197,41 @@
       `;
     }
 
+    function openFaqModal() {
+      const step = DATA[currentIndex];
+      faqModalTitle.textContent = `${step.title} FAQ`;
+      faqModalSub.textContent = "현재 단계에서 자주 막히는 항목을 정리했습니다.";
+      faqList.innerHTML = "";
+
+      (step.faqs || []).forEach((faq, idx) => {
+        const item = document.createElement("div");
+        item.className = "faq-item" + (idx === 0 ? " open" : "");
+        item.innerHTML = `
+          <button class="faq-q" type="button">
+            <span>${escapeHtml(faq.q)}</span>
+            <span class="faq-arrow">⌄</span>
+          </button>
+          <div class="faq-a">${escapeHtml(faq.a)}</div>
+        `;
+
+        item.querySelector(".faq-q").addEventListener("click", () => {
+          item.classList.toggle("open");
+        });
+
+        faqList.appendChild(item);
+      });
+
+      faqModal.classList.add("open");
+      faqModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeFaqModal() {
+      faqModal.classList.remove("open");
+      faqModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
     function escapeHtml(str = "") {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -1046,6 +1274,16 @@
       openStepId = DATA[0].id;
       saveState();
       render();
+    });
+
+    faqBtn.addEventListener("click", openFaqModal);
+    faqCloseBtn.addEventListener("click", closeFaqModal);
+    faqBackdrop.addEventListener("click", closeFaqModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && faqModal.classList.contains("open")) {
+        closeFaqModal();
+      }
     });
 
     render();
