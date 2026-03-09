@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -354,10 +353,7 @@
       .linkBtn,.nextBtn,.primaryBtn,.secondaryBtn,.submitBtn,.ghostBtn{ width:100%; }
       .actionRow{ flex-direction:column; }
       .methodText table,.descText table,.tipText table{ min-width:520px; }
-      .zoomNavBtn{
-        width:44px;
-        height:44px;
-      }
+      .zoomNavBtn{ width:44px; height:44px; }
       .zoomPrev{ left:12px; }
       .zoomNext{ right:12px; }
     }
@@ -1155,6 +1151,7 @@
       }
 
       const inboundGateBlock = getInboundGateBlock(step);
+      const isNShippingStep = Number(step.stepNo) === 5;
 
       area.innerHTML = `
         <section class="stageCard">
@@ -1165,15 +1162,22 @@
             </div>
           </div>
           <div class="blocks">
-            ${step.blocks.sort((a,b) => a.blockOrder - b.blockOrder).map(block => renderBlockHtml(block, false, !!inboundGateBlock)).join('')}
+            ${step.blocks
+              .sort((a,b) => a.blockOrder - b.blockOrder)
+              .map(block => renderBlockHtml(block, false, !!(isNShippingStep && inboundGateBlock)))
+              .join('')}
           </div>
           ${!isCompleted(step.stepNo)
             ? `
               <div class="stageFooter">
-                ${inboundGateBlock
+                ${isNShippingStep && inboundGateBlock
                   ? `
-                    <button class="linkBtn" type="button" data-open-inbound-guide>${escapeHtml(inboundGateBlock.buttonText || '입고 가이드 보러가기')}</button>
-                    <button class="nextBtn" type="button" id="completeInboundGateBtn" data-step="${step.stepNo}">입고 완료</button>
+                    <button class="linkBtn" type="button" data-open-inbound-guide>
+                      ${escapeHtml(inboundGateBlock.buttonText || '입고 가이드 보러가기')}
+                    </button>
+                    <button class="nextBtn" type="button" id="goNShippingBtn" data-step="${step.stepNo}">
+                      N배송설정하기
+                    </button>
                   `
                   : `<button class="nextBtn" type="button" id="completeCurrentStepBtn" data-step="${step.stepNo}">다음 단계 이동</button>`
                 }
@@ -1315,13 +1319,12 @@
       renderFinalMessage();
     }
 
-    function handleInboundComplete(stepNo) {
+    function handleNShippingStep(stepNo) {
       if (!isNShippingReady()) {
         alert('품고에서 입고 완료 확인 후 N배송 설정 안내가 가능합니다.');
         return;
       }
       completeStep(stepNo);
-      showMainGuideScreen();
     }
 
     function getGallerySource(screen) {
@@ -1334,6 +1337,10 @@
       const source = getGallerySource(screen);
       const gallery = source
         .filter(item => String(item.stepCode || '') === String(stepCode || '') && item.imageThumb)
+        .sort((a, b) => {
+          if (Number(a.stepNo) !== Number(b.stepNo)) return Number(a.stepNo) - Number(b.stepNo);
+          return Number(a.blockOrder) - Number(b.blockOrder);
+        })
         .map(item => ({
           src: item.imageZoom || item.imageThumb,
           title: item.blockTitle || title || '이미지'
@@ -1450,10 +1457,10 @@
         return;
       }
 
-      const completeInboundBtn = e.target.closest('#completeInboundGateBtn');
-      if (completeInboundBtn) {
-        const stepNo = Number(completeInboundBtn.getAttribute('data-step'));
-        if (stepNo) handleInboundComplete(stepNo);
+      const nShippingBtn = e.target.closest('#goNShippingBtn');
+      if (nShippingBtn) {
+        const stepNo = Number(nShippingBtn.getAttribute('data-step'));
+        if (stepNo) handleNShippingStep(stepNo);
         return;
       }
 
