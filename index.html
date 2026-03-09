@@ -47,16 +47,20 @@
     .introTitle,.formTitle{ margin:0 0 10px; font-size:24px; font-weight:900; }
     .introDesc{ margin:0 0 18px; color:#374151; font-size:15px; line-height:1.8; font-weight:700; }
 
-    .primaryBtn,.secondaryBtn,.submitBtn,.ghostBtn{
+    .primaryBtn,.secondaryBtn,.submitBtn,.ghostBtn,.linkBtn,.nextBtn{
       display:inline-flex; align-items:center; justify-content:center;
-      min-width:220px; height:48px; padding:0 18px; border-radius:12px;
-      border:none; cursor:pointer; font-size:15px; font-weight:900; text-decoration:none;
+      min-width:260px; min-height:54px; padding:0 24px;
+      border-radius:14px; border:none; cursor:pointer;
+      font-size:15px; font-weight:900; text-decoration:none;
+      text-align:center;
     }
 
-    .primaryBtn{ background:#0040D1; color:#fff; box-shadow:0 8px 18px rgba(0,64,209,.16); }
-    .secondaryBtn{ background:#fff; color:#0040D1; border:1px solid #0040D1; }
-    .submitBtn{ background:#16A34A; color:#fff; box-shadow:0 8px 18px rgba(22,163,74,.14); }
-    .ghostBtn{ background:#fff; color:#111827; border:1px solid #D7DFEA; }
+    .primaryBtn{ background:#0040D1; color:#fff; box-shadow:0 8px 18px rgba(0,64,209,.16); min-height:48px; min-width:220px; padding:0 18px; border-radius:12px; }
+    .secondaryBtn{ background:#fff; color:#0040D1; border:1px solid #0040D1; min-height:48px; min-width:220px; padding:0 18px; border-radius:12px; }
+    .submitBtn{ background:#16A34A; color:#fff; box-shadow:0 8px 18px rgba(22,163,74,.14); min-height:48px; min-width:220px; padding:0 18px; border-radius:12px; }
+    .ghostBtn{ background:#fff; color:#111827; border:1px solid #D7DFEA; box-shadow:none; }
+    .linkBtn{ background:#F59E0B; color:#FFFFFF; box-shadow:0 8px 18px rgba(245,158,11,.16); }
+    .nextBtn{ background:#16A34A; color:#fff; box-shadow:0 8px 18px rgba(22,163,74,.14); }
 
     .formGrid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px; }
     .field{ display:flex; flex-direction:column; gap:8px; justify-content:center; }
@@ -204,24 +208,65 @@
       border-bottom:none !important; border-top:2px solid #CBD5E1 !important; background:#fff !important;
     }
 
+    .processWrap{
+      margin:8px 0 4px;
+      padding:14px;
+      border:1px solid #E5EAF2;
+      border-radius:14px;
+      background:#FBFCFE;
+    }
+
+    .processFlow{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .processStep{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:#EEF4FF;
+      color:#0F172A;
+      font-size:13px;
+      font-weight:900;
+      text-align:center;
+    }
+
+    .processArrow{
+      color:#64748B;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .processMeta{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .processMetaRow{
+      font-size:14px;
+      line-height:1.7;
+      color:#334155;
+    }
+
+    .processMetaLabel{
+      font-weight:900;
+      color:#111827;
+    }
+
     .buttonArea{
       padding:0 20px 20px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; align-items:center;
     }
 
-    .linkBtn{
-      display:inline-flex; align-items:center; justify-content:center; min-width:240px; min-height:52px; padding:0 22px;
-      border-radius:14px; background:#F59E0B; color:#FFFFFF; font-size:15px; font-weight:900; text-decoration:none;
-      box-shadow:0 8px 18px rgba(245,158,11,.16); text-align:center; vertical-align:middle;
-    }
-
     .stageFooter{
       padding:0 20px 22px; display:flex; justify-content:center; align-items:center; background:#fff; gap:10px; flex-wrap:wrap;
-    }
-
-    .nextBtn{
-      display:inline-flex; align-items:center; justify-content:center; min-width:260px; min-height:54px; padding:0 24px;
-      border:none; border-radius:14px; background:#16A34A; color:#fff; font-size:15px; font-weight:900; cursor:pointer;
-      box-shadow:0 8px 18px rgba(22,163,74,.14);
     }
 
     .empty{ padding:40px 20px; text-align:center; color:#6B7280; font-size:14px; font-weight:800; }
@@ -466,7 +511,6 @@
     let viewingStepNo = null;
     let viewingInboundStepNo = null;
     let pendingInquiryData = null;
-    let currentScreen = 'main';
 
     const params = new URLSearchParams(location.search);
     const clientCode = params.get('client') || '';
@@ -491,6 +535,10 @@
 
     function isInquiryDone() {
       return !!(payload && payload.client && payload.client.inquirySubmitted);
+    }
+
+    function isNShippingReady() {
+      return !!(payload && payload.client && payload.client.nShippingReady);
     }
 
     function isCompleted(stepNo) {
@@ -646,7 +694,6 @@
     }
 
     function showMainGuideScreen() {
-      currentScreen = 'main';
       document.getElementById('mainGuideSection').classList.remove('hidden');
       document.getElementById('inboundGuideSection').classList.add('hidden');
       renderSidebar();
@@ -656,7 +703,6 @@
     }
 
     function showInboundGuideScreen() {
-      currentScreen = 'inbound';
       document.getElementById('mainGuideSection').classList.add('hidden');
       document.getElementById('inboundGuideSection').classList.remove('hidden');
       renderInboundSidebar();
@@ -805,7 +851,7 @@
         closeConfirmModal();
         renderIntroState();
 
-        showStatusModal('제출 완료!', 'N배송 가이드로 이동합니다.', false);
+        showStatusModal('제출 완료!', '메인 가이드로 이동합니다.', false);
         await sleep(700);
         hideStatusModal();
 
@@ -890,6 +936,48 @@
       return `<table>${thead}${tbody}</table>`;
     }
 
+    function buildProcessHtml(processContent) {
+      const normalized = decodeHtmlBasic(String(processContent || ''))
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/\r/g, '');
+
+      const lines = normalized
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean);
+
+      if (!lines.length) return '';
+
+      const flowLine = lines[0];
+      const steps = flowLine.split('>').map(v => v.trim()).filter(Boolean);
+      const metaLines = lines.slice(1);
+
+      const flowHtml = `
+        <div class="processFlow">
+          ${steps.map((step, idx) => `
+            <span class="processStep">${escapeHtml(step)}</span>
+            ${idx < steps.length - 1 ? '<span class="processArrow">→</span>' : ''}
+          `).join('')}
+        </div>
+      `;
+
+      const metaHtml = metaLines.length ? `
+        <div class="processMeta">
+          ${metaLines.map(line => {
+            const parts = line.split(':');
+            if (parts.length > 1) {
+              const label = parts.shift().trim();
+              const value = parts.join(':').trim();
+              return `<div class="processMetaRow"><span class="processMetaLabel">${escapeHtml(label)}:</span> ${escapeHtml(value)}</div>`;
+            }
+            return `<div class="processMetaRow">${escapeHtml(line)}</div>`;
+          }).join('')}
+        </div>
+      ` : '';
+
+      return `<div class="processWrap">${flowHtml}${metaHtml}</div>`;
+    }
+
     function renderPlainSegment(segment) {
       if (!segment) return '';
       return String(segment).split('<br>').map(part => {
@@ -904,26 +992,33 @@
       if (!text) return '';
 
       const raw = String(text);
-      const tableRegex = /\[\[table\]\]([\s\S]*?)\[\[\/table\]\]/gi;
+      const blockRegex = /\[\[(table|process)\]\]([\s\S]*?)\[\[\/\1\]\]/gi;
 
-      if (!tableRegex.test(raw)) return renderPlainSegment(raw);
+      if (!blockRegex.test(raw)) return renderPlainSegment(raw);
 
-      tableRegex.lastIndex = 0;
+      blockRegex.lastIndex = 0;
 
       let result = '';
       let lastIndex = 0;
       let match;
 
-      while ((match = tableRegex.exec(raw)) !== null) {
+      while ((match = blockRegex.exec(raw)) !== null) {
         const before = raw.slice(lastIndex, match.index);
-        const tableInner = match[1];
+        const type = match[1];
+        const inner = match[2];
+
         result += renderPlainSegment(before);
-        result += buildCustomTableHtml(tableInner);
+
+        if (type === 'table') {
+          result += buildCustomTableHtml(inner);
+        } else if (type === 'process') {
+          result += buildProcessHtml(inner);
+        }
+
         lastIndex = match.index + match[0].length;
       }
 
-      const after = raw.slice(lastIndex);
-      result += renderPlainSegment(after);
+      result += renderPlainSegment(raw.slice(lastIndex));
       return result;
     }
 
@@ -975,6 +1070,11 @@
       `).join('');
     }
 
+    function getInboundGateBlock(step) {
+      if (!step || !step.blocks) return null;
+      return step.blocks.find(block => String(block.buttonUrl || '').trim() === '#inbound-guide') || null;
+    }
+
     function renderCurrentStage() {
       const area = document.getElementById('currentStageArea');
       const stepNo = getDisplayStepNo();
@@ -990,6 +1090,8 @@
         return;
       }
 
+      const inboundGateBlock = getInboundGateBlock(step);
+
       area.innerHTML = `
         <section class="stageCard">
           <div class="stageHead">
@@ -999,10 +1101,20 @@
             </div>
           </div>
           <div class="blocks">
-            ${step.blocks.sort((a,b) => a.blockOrder - b.blockOrder).map(block => renderBlockHtml(block, false)).join('')}
+            ${step.blocks.sort((a,b) => a.blockOrder - b.blockOrder).map(block => renderBlockHtml(block, false, !!inboundGateBlock)).join('')}
           </div>
           ${!isCompleted(step.stepNo)
-            ? `<div class="stageFooter"><button class="nextBtn" type="button" id="completeCurrentStepBtn" data-step="${step.stepNo}">다음 단계 이동</button></div>`
+            ? `
+              <div class="stageFooter">
+                ${inboundGateBlock
+                  ? `
+                    <button class="linkBtn" type="button" data-open-inbound-guide>${escapeHtml(inboundGateBlock.buttonText || '입고 가이드 보러가기')}</button>
+                    <button class="nextBtn" type="button" id="completeInboundGateBtn" data-step="${step.stepNo}">입고 완료</button>
+                  `
+                  : `<button class="nextBtn" type="button" id="completeCurrentStepBtn" data-step="${step.stepNo}">다음 단계 이동</button>`
+                }
+              </div>
+            `
             : ''
           }
         </section>
@@ -1033,13 +1145,13 @@
             </div>
           </div>
           <div class="blocks">
-            ${step.blocks.sort((a,b) => a.blockOrder - b.blockOrder).map(block => renderBlockHtml(block, true)).join('')}
+            ${step.blocks.sort((a,b) => a.blockOrder - b.blockOrder).map(block => renderBlockHtml(block, true, false)).join('')}
           </div>
         </section>
       `;
     }
 
-    function renderBlockHtml(block, isInbound) {
+    function renderBlockHtml(block, isInbound, suppressInboundButton) {
       const title = block.blockTitle || '';
       const path = block.path || '';
       const desc = block.desc || '';
@@ -1050,6 +1162,7 @@
       const highlight = block.highlight || '';
       const platformClass = normalizePlatform(block.platform);
       const hasImage = !!imageThumb;
+      const isInboundGuideButton = buttonUrl === '#inbound-guide';
 
       return `
         <div class="block">
@@ -1092,9 +1205,9 @@
             </div>
           ` : ''}
 
-          ${buttonText && buttonUrl ? `
+          ${buttonText && buttonUrl && !(suppressInboundButton && isInboundGuideButton) ? `
             <div class="buttonArea">
-              ${buttonUrl === '#inbound-guide'
+              ${isInboundGuideButton
                 ? `<button class="linkBtn" type="button" data-open-inbound-guide>${escapeHtml(buttonText)}</button>`
                 : `<a class="linkBtn" href="${escapeAttr(buttonUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(buttonText)}</a>`
               }
@@ -1129,6 +1242,14 @@
       renderCurrentStage();
       renderProgress();
       renderFinalMessage();
+    }
+
+    function handleInboundComplete(stepNo) {
+      if (!isNShippingReady()) {
+        alert('품고에서 입고 완료 확인 후 N배송 설정 안내가 가능합니다.');
+        return;
+      }
+      completeStep(stepNo);
     }
 
     document.addEventListener('click', function(e) {
@@ -1191,6 +1312,13 @@
       if (completeBtn) {
         const stepNo = Number(completeBtn.getAttribute('data-step'));
         if (stepNo) completeStep(stepNo);
+        return;
+      }
+
+      const completeInboundBtn = e.target.closest('#completeInboundGateBtn');
+      if (completeInboundBtn) {
+        const stepNo = Number(completeInboundBtn.getAttribute('data-step'));
+        if (stepNo) handleInboundComplete(stepNo);
         return;
       }
 
