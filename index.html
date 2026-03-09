@@ -517,6 +517,7 @@
       border:2px solid;
       border-radius:16px;
       background:#fff;
+      overflow-x:auto;
     }
 
     .method{ border-color:#D1D5DB; }
@@ -575,6 +576,7 @@
       display:flex;
       gap:10px;
       align-items:flex-start;
+      overflow-x:auto;
     }
 
     .tipBadge{
@@ -599,6 +601,7 @@
       font-weight:800;
       line-height:1.8;
       word-break:break-word;
+      width:100%;
     }
 
     .methodText a,
@@ -614,6 +617,43 @@
       margin:14px 0;
       border:0;
       border-top:1px solid #D8DEE9;
+    }
+
+    .methodText table,
+    .descText table,
+    .tipText table{
+      width:100%;
+      min-width:560px;
+      border-collapse:collapse;
+      margin:8px 0;
+      background:#fff;
+      table-layout:fixed;
+    }
+
+    .methodText th, .methodText td,
+    .descText th, .descText td,
+    .tipText th, .tipText td{
+      border:1px solid #D8DEE9;
+      padding:10px 12px;
+      text-align:left;
+      vertical-align:top;
+      font-size:14px;
+      line-height:1.7;
+      word-break:break-word;
+    }
+
+    .methodText th,
+    .descText th,
+    .tipText th{
+      background:#F8FAFC;
+      font-weight:900;
+      color:#111827;
+    }
+
+    .methodText tbody tr:nth-child(even),
+    .descText tbody tr:nth-child(even),
+    .tipText tbody tr:nth-child(even){
+      background:#FCFDFE;
     }
 
     .buttonArea{
@@ -878,14 +918,6 @@
         <button type="button" class="secondaryBtn" id="cancelInquiryBtn">닫기</button>
         <button type="button" class="submitBtn" id="previewSubmitBtn">제출 전 확인</button>
       </div>
-
-      <div class="successBox hidden" id="submitSuccessBox">
-        질의 사항 입력이 완료되었습니다.<br>
-        아래 버튼을 눌러 N배송 세팅 가이드를 확인해주세요.
-        <div class="actionRow" style="margin-top:14px;">
-          <button type="button" class="primaryBtn" id="showGuideBtn">N배송 세팅 가이드 보기</button>
-        </div>
-      </div>
     </section>
 
     <section class="hidden" id="guideSection">
@@ -1098,18 +1130,20 @@
       const introCard = document.getElementById('introCard');
       const formCard = document.getElementById('inquiryFormCard');
       const guideSection = document.getElementById('guideSection');
-      const successBox = document.getElementById('submitSuccessBox');
 
       if (isInquiryDone()) {
         introCard.classList.add('hidden');
-        formCard.classList.remove('hidden');
-        successBox.classList.remove('hidden');
-      } else {
-        introCard.classList.remove('hidden');
         formCard.classList.add('hidden');
-        successBox.classList.add('hidden');
+        guideSection.classList.remove('hidden');
+        renderSidebar();
+        renderCurrentStage();
+        renderProgress();
+        renderFinalMessage();
+        return;
       }
 
+      introCard.classList.remove('hidden');
+      formCard.classList.add('hidden');
       guideSection.classList.add('hidden');
     }
 
@@ -1219,8 +1253,8 @@
 
         setInquiryDone();
         closeConfirmModal();
-        document.getElementById('submitSuccessBox').classList.remove('hidden');
-        alert('질의 사항이 정상 제출되었습니다.');
+        renderIntroState();
+        document.getElementById('guideSection').scrollIntoView({ behavior:'smooth', block:'start' });
       } catch (err) {
         console.error(err);
         alert('제출 요청 중 오류가 발생했습니다. 웹앱 배포 상태를 확인해주세요.');
@@ -1242,6 +1276,24 @@
       if (v === '네이버') return 'platform-naver';
       if (v.includes('강조')) return 'platform-emphasis';
       return '';
+    }
+
+    function containsTableHtml(text) {
+      return /<(table|thead|tbody|tr|th|td)\b/i.test(String(text || ''));
+    }
+
+    function renderRichContent(text) {
+      if (!text) return '';
+      const raw = String(text);
+
+      if (containsTableHtml(raw)) {
+        return raw;
+      }
+
+      return raw
+        .split('<br>')
+        .map(part => part.trim() === '---' ? '<hr class="textDivider">' : `<div>${part}</div>`)
+        .join('');
     }
 
     function renderSidebar() {
@@ -1310,14 +1362,6 @@
           }
         </section>
       `;
-    }
-
-    function renderRichContent(text) {
-      if (!text) return '';
-      return String(text)
-        .split('<br>')
-        .map(raw => raw.trim() === '---' ? '<hr class="textDivider">' : `<div>${raw}</div>`)
-        .join('');
     }
 
     function renderBlockHtml(block) {
@@ -1445,12 +1489,6 @@
       const finalSubmitBtn = e.target.closest('#finalSubmitBtn');
       if (finalSubmitBtn) {
         submitInquiry();
-        return;
-      }
-
-      const showGuideBtn = e.target.closest('#showGuideBtn');
-      if (showGuideBtn) {
-        showGuide();
         return;
       }
 
