@@ -192,6 +192,7 @@
     .req{color:#dc2626;margin-left:1px}
     .input,.select,.textarea{width:100%;border:1px solid #dbe3ee;border-radius:14px;background:#fff;padding:14px 14px;outline:none;transition:border-color .18s ease, box-shadow .18s ease;color:#111827}
     .input:focus,.select:focus,.textarea:focus{border-color:#b5c9ff;box-shadow:0 0 0 4px rgba(0,64,209,.08)}
+    .input[readonly]{background:#f8fafc;color:#475569}
     .textarea{min-height:120px;resize:vertical}
     .hint{font-size:12px;color:#6b7280;white-space:pre-line}
     .choice-row{display:flex;gap:10px;flex-wrap:wrap}
@@ -302,7 +303,9 @@ N배송 세팅 가이드에 오신 것을 환영합니다</h2>
 
             <div class="field">
               <label for="skuCount"><span class="label-text">2. 초도 입고 SKU 종 수</span><span class="req">*</span></label>
-              <input class="input" id="skuCount" type="number" min="0" placeholder="예: 10">
+              <input class="input" id="skuCount" type="number" readonly>
+              <div class="hint">SKU 종 수는 품고에서 사전 확인 후 자동 입력됩니다.
+변경이 필요한 경우 담당자에게 문의해주세요.</div>
             </div>
 
             <div class="field full">
@@ -347,6 +350,7 @@ N배송 세팅 가이드에 오신 것을 환영합니다</h2>
 
             <div class="field full">
               <label><span class="label-text">8. 단수출고 유무</span><span class="req">*</span></label>
+              <div class="hint">합포 없이 상품(SKU) 자체에 송장을 부착하는 상품(SKU)가 있는 경우 체크해주세요.</div>
               <div class="choice-row">
                 <label class="choice-pill"><input type="radio" name="singleShipment" value="Y"> Y</label>
                 <label class="choice-pill"><input type="radio" name="singleShipment" value="N"> N</label>
@@ -508,7 +512,7 @@ N배송 세팅 가이드에 오신 것을 환영합니다</h2>
     const CONFIG = {
       SPREADSHEET_ID: '1JzTyCkZHBMEQiKNqIXLB8KUiVY8Y-33KICB2lwM06GQ',
       GAS_WEBAPP_URL: 'https://script.google.com/macros/s/AKfycbwwxe5ZigCmq-tjXyGZJUK1Nomije28Fu6Ueb-pw_d2KUsTsGHE5lcEeG505gfcVV-M/exec',
-      COMPANY_LOGO_URL: 'https://drive.google.com/file/d/1tgVRxlRQ63QkShpmz1434yuWDD9MpKjw/view?usp=drive_link',
+      COMPANY_LOGO_URL: 'https://drive.google.com/uc?export=view&id=1tgVRxlRQ63QkShpmz1434yuWDD9MpKjw',
       SHEETS: {
         steps: 'steps',
         contents: 'contents',
@@ -620,6 +624,11 @@ N배송 세팅 가이드에 오신 것을 환영합니다</h2>
           ? `${customerName} 전용 N배송 세팅 가이드입니다. 아래 순서대로 진행해주세요.`
           : CONFIG.DEFAULT_SUBTITLE;
 
+        const fixedSkuCount = String(CLIENT_INFO['SKU종수'] || '').trim();
+        if (fixedSkuCount) {
+          document.getElementById('skuCount').value = fixedSkuCount;
+        }
+
         state = loadState();
         currentIndex = Math.min(state.currentIndex ?? 0, DATA.length - 1);
         openStepId = state.openStepId || DATA[currentIndex].id;
@@ -641,7 +650,7 @@ N배송 세팅 가이드에 오신 것을 환영합니다</h2>
 
     function applyCompanyLogo_() {
       const logoUrl = normalizeImageUrl_(CONFIG.COMPANY_LOGO_URL, true);
-      if (!logoUrl || logoUrl.includes('여기에_회사로고_URL')) {
+      if (!logoUrl) {
         companyLogo.style.display = 'none';
         return;
       }
@@ -961,7 +970,7 @@ N배송 세팅 가이드에 오신 것을 환영합니다</h2>
     function validateInquiryForm() {
       const v = getInquiryValues();
       if (!v.inboundDate) return '초도 입고 일정을 선택해주세요.';
-      if (v.skuCount === '') return '초도 입고 SKU 종 수를 입력해주세요.';
+      if (v.skuCount === '') return '초도 입고 SKU 종 수가 설정되어 있지 않습니다. 담당자에게 문의해주세요.';
       if (v.pltCount === '') return '초도 입고 PLT 수를 입력해주세요.';
       if (v.monthlyPltCount === '') return '월 별 보관 예정 PLT 수를 입력해주세요.';
       if (!v.packType) return '포장 방법을 선택해주세요.';
