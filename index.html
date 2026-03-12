@@ -857,10 +857,50 @@
       const body = item.bodyHtml ? `<div class="detail-body">${wrapTables(item.bodyHtml)}</div>` : '';
       const note = item.noteHtml ? `<div class="subnote">${item.noteHtml}</div>` : '';
       const warn = item.warnHtml ? `<div class="warn"><strong>주의</strong>${item.warnHtml}</div>` : '';
-      const image = item.imageUrl ? `<div class="render-image"><img src="${escapeAttr(item.imageUrl)}" alt="${escapeAttr(item.title)}">${item.imageCaption ? `<div class="render-caption">${item.imageCaption}</div>` : ''}</div>` : '';
+      const normalizedImageUrl = normalizeImageUrl_(item.imageUrl);
+      const image = normalizedImageUrl ? `<div class="render-image"><img src="${escapeAttr(normalizedImageUrl)}" alt="${escapeAttr(item.title)}">${item.imageCaption ? `<div class="render-caption">${item.imageCaption}</div>` : ''}</div>` : '';
       if (item.type === 'path') return `${title}<div class="subnote">${escapeHtml(stripHtml(item.bodyHtml)).replaceAll('>', '→')}</div>${warn}`;
       if (item.type === 'link') return `${title}${body}${warn}${item.linkUrl ? `<div style="margin-top:12px;"><a class="btn primary" href="${escapeAttr(item.linkUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.linkText || '바로가기')}</a></div>` : ''}`;
       return `${title}${body}${image}${note}${warn}`;
+    }
+
+    function normalizeImageUrl_(url) {
+      const raw = String(url || '').trim();
+      if (!raw) return '';
+
+      // 이미 직접 이미지 링크면 그대로 사용
+      if (/^https?:\/\//i.test(raw) && !/drive\.google\.com/i.test(raw)) {
+        return raw;
+      }
+
+      // 구글 드라이브 공유 링크 / 파일 링크에서 fileId 추출
+      const fileId = extractGoogleDriveFileId_(raw);
+      if (fileId) {
+        return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1600`;
+      }
+
+      return raw;
+    }
+
+    function extractGoogleDriveFileId_(url) {
+      const raw = String(url || '').trim();
+      if (!raw) return '';
+
+      // file/d/FILE_ID
+      let match = raw.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) return match[1];
+
+      // open?id=FILE_ID 또는 uc?id=FILE_ID
+      match = raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) return match[1];
+
+      // drive/folders 는 이미지가 아니라 제외
+      if (/\/folders\//.test(raw)) return '';
+
+      // 혹시 fileId만 단독 입력한 경우
+      if (/^[a-zA-Z0-9_-]{20,}$/.test(raw)) return raw;
+
+      return '';
     }
 
     function wrapTables(html) {
@@ -997,8 +1037,9 @@
         return;
       }
 
-      const imagePart = info.image
-        ? `<button class="pack-thumb" type="button" data-image="${escapeAttr(info.image)}"><img src="${escapeAttr(info.image)}" alt="${escapeAttr(info.title)}"></button>`
+      const normalizedImageUrl = normalizeImageUrl_(info.image);
+      const imagePart = normalizedImageUrl
+        ? `<button class="pack-thumb" type="button" data-image="${escapeAttr(normalizedImageUrl)}"><img src="${escapeAttr(normalizedImageUrl)}" alt="${escapeAttr(info.title)}"></button>`
         : `<div class="pack-thumb" style="display:grid;place-items:center;color:#94a3b8;font-size:13px;">예시 이미지 준비중</div>`;
 
       packPreviewArea.innerHTML = `
