@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" as="style" crossorigin
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
 
   <style>
     :root{
@@ -15,11 +16,31 @@
       --text:#111827;
       --muted:#6b7280;
       --line:#e7ebf0;
+
       --brand:#0040d1;
       --brand-soft:#eef3ff;
       --brand-line:#cddcff;
-      --naver:#03c75a;
-      --shadow:0 10px 30px rgba(15,23,42,.06);
+      --brand-deep:#0032a8;
+
+      --naver:#03C75A;
+      --naver-soft:#effaf4;
+      --naver-line:#bdeccc;
+      --naver-deep:#00a246;
+
+      --soft:#f8fafc;
+      --soft-blue:#edf4fb;
+
+      --warn-bg:#fff7ed;
+      --warn-line:#fed7aa;
+      --warn-text:#9a3412;
+
+      --danger-bg:#fff1f2;
+      --danger-line:#fecdd3;
+      --danger-text:#be123c;
+
+      --shadow:0 10px 30px rgba(15,23,42,.05);
+      --shadow-soft:0 6px 18px rgba(15,23,42,.04);
+
       --radius-2xl:28px;
       --radius-xl:24px;
       --radius-lg:18px;
@@ -27,565 +48,464 @@
     }
 
     *{box-sizing:border-box}
-
+    html,body{margin:0;padding:0;height:100%}
     body{
-      margin:0;
       font-family:"Pretendard Variable","Pretendard",system-ui,sans-serif;
       background:linear-gradient(180deg,#f7f9fb 0%, #f2f5f8 100%);
       color:var(--text);
+      line-height:1.6;
     }
 
-    .wrap{
-      max-width:980px;
-      margin:0 auto;
-      padding:28px 18px 48px;
-    }
-
-    .topbar{
-      margin-bottom:18px;
-    }
-
-    .logo{
-      height:30px;
-      width:auto;
-      display:none;
-      margin-bottom:18px;
-      object-fit:contain;
-    }
-
-    .guide-logo{
-      margin-bottom:14px;
-    }
-
-    h1{
-      margin:0 0 8px;
-      font-size:32px;
-      line-height:1.18;
-      letter-spacing:-.03em;
-    }
-
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      white-space:pre-line;
-    }
-
-    .card{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:var(--radius-2xl);
-      box-shadow:var(--shadow);
-      padding:28px;
-    }
-
-    .section{
-      margin-bottom:24px;
-    }
-
-    .label{
-      display:block;
-      font-size:15px;
-      font-weight:800;
-      margin-bottom:10px;
-      line-height:1.5;
-    }
-
-    .req{color:#dc2626}
-
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .full{grid-column:1 / -1}
-
-    .input,.select,.textarea{
-      width:100%;
-      padding:14px;
-      border:1px solid #dbe3ee;
-      border-radius:14px;
-      outline:none;
-      font:inherit;
-      background:#fff;
-    }
-
-    .input:focus,.select:focus,.textarea:focus{
-      border-color:#b5c9ff;
-      box-shadow:0 0 0 4px rgba(0,64,209,.08);
-    }
-
-    .textarea{
-      min-height:120px;
-      resize:vertical;
-    }
-
-    .choice-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .choice-pill{
-      border:1px solid #dbe3ee;
-      background:#fff;
-      border-radius:999px;
-      padding:10px 14px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      font-weight:700;
-      color:#374151;
-    }
-
-    .choice-pill input{
-      accent-color:var(--brand);
-    }
-
-    .hint{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:8px;
-      white-space:pre-line;
-    }
-
-    .pack-preview{
-      margin-top:12px;
-      padding:14px;
-      border:1px solid #e5ebf2;
-      border-radius:18px;
-      background:#fbfcfe;
-      display:grid;
-      grid-template-columns:120px 1fr;
-      gap:14px;
-    }
-
-    .pack-preview img{
-      width:120px;
-      height:120px;
-      object-fit:cover;
-      border-radius:14px;
-      border:1px solid #e5e7eb;
-      background:#fff;
-      cursor:pointer;
-    }
-
-    .pack-preview h4{
-      margin:0 0 6px;
-      font-size:15px;
-      font-weight:900;
-    }
-
-    .pack-preview p{
-      margin:0;
-      font-size:14px;
-      color:#4b5563;
-      white-space:pre-line;
-    }
-
-    .actions{
-      display:flex;
-      justify-content:flex-end;
-      margin-top:28px;
-    }
-
-    .btn{
-      border:none;
-      background:var(--brand);
-      color:#fff;
-      padding:14px 20px;
-      border-radius:14px;
-      font-weight:800;
-      cursor:pointer;
-      font:inherit;
-    }
-
-    .btn.secondary{
-      background:#fff;
-      color:#111827;
-      border:1px solid var(--line);
-    }
-
+    button,input,select,textarea{font:inherit}
+    img{max-width:100%;display:block}
+    a{text-decoration:none}
     .hidden{display:none !important}
 
-    .error{
-      margin-top:16px;
-      padding:14px;
-      border-radius:14px;
-      background:#fff1f2;
-      border:1px solid #fecdd3;
-      color:#be123c;
-      white-space:pre-line;
+    .app{width:100%;min-height:100vh;padding:20px}
+    .topbar{margin-bottom:18px;padding:0 4px}
+    .logo-wrap{margin-bottom:14px}
+    .top-logo{
+      height:32px;
+      width:auto;
+      object-fit:contain;
+      display:block;
     }
 
-    .modal{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      z-index:1000;
+    h1{margin:0 0 8px;font-size:32px;line-height:1.18;letter-spacing:-.03em}
+    .sub{margin:0;color:var(--muted);font-size:14px;white-space:pre-line}
+
+    .layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;min-height:calc(100vh - 110px)}
+
+    .card{
+      background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.88);
+      border-radius:var(--radius-2xl);box-shadow:var(--shadow);backdrop-filter:blur(8px);
     }
 
-    .modal.open{display:flex}
+    .sidebar{display:flex;flex-direction:column;height:calc(100vh - 40px);position:sticky;top:20px;padding:18px}
+    .sidebar-header{flex:0 0 auto}
+    .sidebar-steps{flex:1;overflow-y:auto;margin-top:12px;margin-bottom:12px;padding-right:4px;scroll-behavior:smooth}
+    .sidebar-footer{flex:0 0 auto;margin-top:auto}
+    .sidebar-steps::-webkit-scrollbar{width:6px}
+    .sidebar-steps::-webkit-scrollbar-thumb{background:#dbe2ea;border-radius:999px}
+    .sidebar-steps::-webkit-scrollbar-track{background:transparent}
 
-    .modal-backdrop{
-      position:absolute;
-      inset:0;
-      background:rgba(15,23,42,.48);
+    .side-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:0}
+    .side-title{font-size:17px;font-weight:900;letter-spacing:-.02em}
+    .progress{padding:6px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:12px;font-weight:800;white-space:nowrap}
+    .accordion{display:flex;flex-direction:column;gap:10px}
+
+    .step-item{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;transition:all .2s ease}
+    .step-item.active{border-color:#d9e4ff;box-shadow:0 8px 24px rgba(0,64,209,.08)}
+    .step-header{width:100%;border:none;background:#fff;padding:14px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer}
+    .step-item.active .step-header{background:linear-gradient(180deg,#fbfcff 0%, #f4f7ff 100%)}
+    .step-num{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-size:14px;font-weight:800;background:#f3f4f6;color:#374151;flex:0 0 36px}
+    .step-item.active .step-num{background:var(--brand);color:#fff}
+    .step-main{min-width:0;flex:1}
+    .step-title{margin:0 0 4px;font-size:14px;font-weight:800;letter-spacing:-.02em}
+    .step-state{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px;font-weight:700}
+    .dot{width:8px;height:8px;border-radius:50%;background:#d1d5db}
+    .dot.done{background:var(--naver)}
+    .dot.current{background:var(--brand)}
+    .chev{color:#94a3b8;transition:transform .2s ease;font-size:18px}
+    .step-item.active .chev{transform:rotate(180deg)}
+    .step-body{display:none;padding:10px 14px 14px;border-top:1px solid #f0f3f6;background:#fcfdff}
+    .step-item.active .step-body{display:block}
+    .step-sublist{display:flex;flex-direction:column;gap:8px}
+    .step-subitem{display:flex;gap:8px;font-size:13px;color:#475569;word-break:break-word}
+    .side-note{padding:13px 14px;border-radius:16px;background:#f8fafc;border:1px solid var(--line);color:var(--muted);font-size:12px}
+
+    .main{padding:28px;min-width:0}
+    .hero{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap;padding:4px 0 2px}
+    .step-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:13px;font-weight:800;margin-bottom:12px}
+    .hero h2{margin:0 0 10px;font-size:30px;line-height:1.18;letter-spacing:-.03em;word-break:keep-all}
+    .hero p{margin:0;color:var(--muted);font-size:15px;word-break:keep-all;white-space:pre-line}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+
+    .btn{border:none;padding:12px 16px;border-radius:14px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:all .18s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.secondary{background:#fff;border:1px solid var(--line);color:#111827;box-shadow:var(--shadow-soft)}
+    .btn.primary{background:var(--brand);color:#fff;box-shadow:0 10px 20px rgba(0,64,209,.18)}
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+    .guide{border:1px solid #edf1f5;border-radius:24px;overflow:hidden;background:#fff}
+    .guide-section{padding:26px}
+    .guide-section + .guide-section{border-top:1px solid #eff3f6}
+    .section-label{margin:0 0 14px;font-size:12px;font-weight:900;color:#7b8794;text-transform:uppercase;letter-spacing:.08em}
+    .lead-box{background:linear-gradient(180deg,#fcfdff 0%, #f4f7ff 100%)}
+    .lead-text{margin:0;font-size:22px;line-height:1.5;font-weight:800;letter-spacing:-.025em;word-break:keep-all;white-space:pre-line}
+
+    .process-strip-wrap{padding:16px;border-radius:22px;background:var(--soft-blue);border:1px solid #e4edf7}
+    .process-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+    .process-card{
+      position:relative;min-height:76px;padding:18px 16px 14px;border-radius:16px;background:#fff;border:1px solid #ebeff5;
+      display:flex;align-items:center;justify-content:center;text-align:center;font-size:15px;font-weight:800;color:#222;
+      line-height:1.45;box-shadow:0 3px 10px rgba(15,23,42,.03);transition:all .18s ease;word-break:keep-all;cursor:pointer;
     }
+    .process-card:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(15,23,42,.06)}
+    .process-card.current{box-shadow:0 10px 24px rgba(15,23,42,.10)}
+    .process-card::before{content:attr(data-step);position:absolute;top:10px;left:12px;font-size:11px;font-weight:900;color:#94a3b8;letter-spacing:.06em}
+    .process-card.brand.current{background:linear-gradient(180deg,#f6f8ff 0%, #eef3ff 100%);border-color:var(--brand-line);color:var(--brand)}
+    .process-card.brand.done{background:#f7f9ff;border-color:#d9e3ff;color:#3553a8}
+    .process-card.naver.current{background:linear-gradient(180deg,#f5fff9 0%, #ecfff4 100%);border-color:var(--naver-line);color:var(--naver-deep)}
+    .process-card.naver.done{background:#f9fcfa;border-color:#dce9e1;color:#3f4d46}
 
-    .modal-panel{
-      position:relative;
-      width:min(760px,100%);
-      max-height:85vh;
-      overflow:auto;
-      background:#fff;
-      border-radius:24px;
-      border:1px solid var(--line);
-      padding:24px;
-      box-shadow:0 24px 60px rgba(15,23,42,.20);
-    }
+    .detail-list{display:flex;flex-direction:column;gap:0}
+    .detail-item{padding:20px 0;border-bottom:1px solid #eef2f7}
+    .detail-item.hidden{display:none}
+    .detail-item:last-child{border-bottom:none;padding-bottom:0}
+    .detail-title{margin:0 0 10px;font-size:18px;font-weight:900;letter-spacing:-.02em;word-break:keep-all}
+    .detail-body{margin:0;font-size:15px;color:#374151;word-break:break-word;overflow-wrap:anywhere;white-space:pre-line}
+    .detail-body p{margin:0 0 10px}
+    .detail-body p:last-child{margin-bottom:0}
+    .detail-body table{width:100%;min-width:560px;border-collapse:collapse;background:#fff}
+    .detail-body th,.detail-body td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px;word-break:break-word}
+    .detail-body th{background:#f8fafc;font-size:13px;font-weight:800;color:#374151}
+    .detail-body .table-wrap{width:100%;overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:16px}
+    .subnote{margin-top:12px;padding:14px 16px;border-radius:16px;background:#f8fbfd;border:1px solid var(--line);font-size:14px;color:#374151;white-space:pre-line;word-break:break-word;overflow-wrap:anywhere}
+    .warn{margin-top:12px;padding:14px 16px;border-radius:16px;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-text);font-size:14px}
+    .warn strong{display:block;margin-bottom:6px;font-size:13px}
+    .render-image{margin-top:14px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+    .render-image img{width:100%;height:auto;object-fit:contain;background:#fff}
+    .render-caption{padding:12px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);white-space:pre-line}
 
-    .summary-list{
-      display:grid;
-      gap:10px;
-    }
+    .check-area{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .check-row{display:flex;gap:10px;align-items:flex-start;padding:15px 16px;border:1px solid var(--line);border-radius:16px;background:#fbfcfd;min-width:0;transition:all .15s ease}
+    .check-row input{width:18px;height:18px;margin-top:2px;accent-color:var(--brand);flex:0 0 auto}
+    .check-row span{font-size:14px;font-weight:700;word-break:break-word;white-space:pre-line}
+    .footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap}
 
-    .summary-item{
-      display:grid;
-      grid-template-columns:180px 1fr;
-      gap:12px;
-      padding:10px 0;
-      border-bottom:1px solid #e6ecfb;
-    }
+    .loading{padding:40px 20px;color:var(--muted);font-size:14px}
+    .error{margin-top:12px;padding:16px;border-radius:16px;background:var(--danger-bg);border:1px solid var(--danger-line);color:var(--danger-text);font-size:14px;white-space:pre-line}
+    .empty{color:var(--muted);font-size:14px}
 
+    .form-section{padding:24px;border:1px solid #edf1f5;border-radius:24px;background:#fff;box-shadow:var(--shadow-soft)}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .field{display:flex;flex-direction:column;gap:8px}
+    .field.full{grid-column:1 / -1}
+    .field label{font-size:14px;font-weight:800;color:#1f2937;display:flex;align-items:center;gap:4px;white-space:normal}
+    .req{color:#dc2626}
+    .input,.select,.textarea{width:100%;border:1px solid #dbe3ee;border-radius:14px;background:#fff;padding:14px;outline:none;transition:border-color .18s ease, box-shadow .18s ease;color:#111827}
+    .input:focus,.select:focus,.textarea:focus{border-color:#b5c9ff;box-shadow:0 0 0 4px rgba(0,64,209,.08)}
+    .textarea{min-height:120px;resize:vertical}
+    .hint{font-size:12px;color:#6b7280;white-space:pre-line}
+    .choice-row{display:flex;gap:10px;flex-wrap:wrap}
+    .choice-pill{border:1px solid #dbe3ee;background:#fff;border-radius:999px;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;color:#374151}
+    .choice-pill input{accent-color:var(--brand)}
+
+    .pack-card{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:start;padding:14px;border:1px solid #e5ebf2;border-radius:18px;background:#fbfcfe}
+    .pack-thumb{width:120px;height:120px;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #e5e7eb;cursor:pointer}
+    .pack-thumb img{width:100%;height:100%;object-fit:cover}
+    .pack-meta h4{margin:0 0 6px;font-size:15px;font-weight:900}
+    .pack-meta p{margin:0;font-size:14px;color:#4b5563;white-space:pre-line}
+
+    .summary-box{margin-top:18px;padding:18px;border:1px solid #dbe5ff;border-radius:20px;background:linear-gradient(180deg,#fbfcff 0%, #f5f8ff 100%)}
+    .summary-box h3{margin:0 0 10px;font-size:18px}
+    .summary-list{display:grid;gap:10px}
+    .summary-item{display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid #e6ecfb}
     .summary-item:last-child{border-bottom:none}
+    .summary-key{font-size:13px;font-weight:900;color:#4b5563}
+    .summary-val{font-size:14px;color:#111827;word-break:break-word;white-space:pre-line}
 
-    .summary-key{
-      font-size:13px;
-      font-weight:900;
-      color:#4b5563;
-    }
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;z-index:1000}
+    .modal.open{display:flex}
+    .modal-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.48);backdrop-filter:blur(2px)}
+    .modal-panel{position:relative;width:min(760px, 100%);max-height:85vh;overflow:auto;background:#fff;border-radius:26px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(15,23,42,.20);padding:24px}
+    .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}
+    .modal-title{margin:0;font-size:24px;line-height:1.2;letter-spacing:-.03em}
+    .modal-sub{margin:8px 0 0;color:var(--muted);font-size:14px;white-space:pre-line}
+    .icon-btn{border:none;background:#f3f4f6;width:40px;height:40px;border-radius:12px;cursor:pointer;font-size:20px;line-height:1}
+    .faq-list{display:flex;flex-direction:column;gap:10px}
+    .faq-item{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+    .faq-q{width:100%;border:none;background:#fff;padding:16px;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font-weight:800;font-size:15px}
+    .faq-a{display:none;padding:0 16px 16px;color:#374151;font-size:14px;white-space:pre-line;word-break:break-word}
+    .faq-item.open .faq-a{display:block}
+    .faq-item.open .faq-arrow{transform:rotate(180deg)}
+    .faq-arrow{transition:transform .2s ease;color:#6b7280}
+    .image-modal-panel{width:min(720px,100%);padding:18px}
+    .image-modal-panel img{width:100%;height:auto;border-radius:18px}
 
-    .summary-val{
-      font-size:14px;
-      white-space:pre-line;
-      word-break:break-word;
-    }
-
-    .modal-actions{
-      display:flex;
-      justify-content:flex-end;
-      gap:10px;
-      margin-top:18px;
-    }
-
-    .image-modal img{
-      width:100%;
-      border-radius:18px;
-    }
-
-    .guide-head{
-      margin-bottom:22px;
-    }
-
-    .guide-chip{
-      display:inline-flex;
-      padding:8px 12px;
-      border-radius:999px;
-      background:var(--brand-soft);
-      color:var(--brand);
-      font-size:13px;
-      font-weight:800;
-      margin-bottom:12px;
-    }
-
-    .guide-title{
-      margin:0 0 8px;
-      font-size:28px;
-      letter-spacing:-.03em;
-    }
-
-    .guide-desc{
-      margin:0;
-      color:var(--muted);
-      white-space:pre-line;
-    }
-
-    .guide-steps{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:12px;
-      margin-bottom:24px;
-    }
-
-    .guide-step-btn{
-      border:1px solid #dbe3ee;
-      background:#fff;
-      color:#374151;
-      border-radius:16px;
-      padding:18px 14px;
-      font-weight:800;
-      cursor:pointer;
-      text-align:center;
-      transition:.18s ease;
-    }
-
-    .guide-step-btn.active{
-      background:#eef3ff;
-      color:#0040d1;
-      border-color:#cddcff;
-      box-shadow:0 8px 20px rgba(0,64,209,.08);
-    }
-
-    .guide-panel{
-      border:1px solid #edf1f5;
-      border-radius:22px;
-      padding:24px;
-      background:#fff;
-    }
-
-    .guide-panel h3{
-      margin:0 0 10px;
-      font-size:22px;
-      letter-spacing:-.02em;
-    }
-
-    .guide-panel p{
-      margin:0 0 16px;
-      color:#4b5563;
-      white-space:pre-line;
-    }
-
-    .guide-box{
-      padding:16px;
-      border-radius:16px;
-      background:#f8fafc;
-      border:1px solid #e5e7eb;
-      margin-bottom:12px;
-    }
-
-    .guide-box-title{
-      margin:0 0 6px;
-      font-size:15px;
-      font-weight:900;
-    }
-
-    .guide-box-text{
-      margin:0;
-      color:#4b5563;
-      font-size:14px;
-      white-space:pre-line;
+    @media (max-width:1024px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{position:static;height:auto}
+      .sidebar-steps{overflow:visible;max-height:none}
+      .check-area,.form-grid{grid-template-columns:1fr}
     }
 
     @media (max-width:640px){
-      .grid{grid-template-columns:1fr}
-      .summary-item{grid-template-columns:1fr}
-      .pack-preview{grid-template-columns:1fr}
-      .pack-preview img{width:100%;height:180px}
-      .guide-steps{grid-template-columns:1fr 1fr}
+      .app{padding:10px}
+      .main{padding:18px}
+      h1{font-size:25px}
+      .hero h2{font-size:24px}
+      .guide-section,.form-section{padding:18px}
+      .modal-panel{padding:18px}
+      .modal-title{font-size:20px}
+      .lead-text{font-size:18px}
+      .process-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .process-card{min-height:64px;font-size:14px;padding:14px 12px}
+      .pack-card{grid-template-columns:1fr}
+      .pack-thumb{width:100%;height:180px}
+      .summary-item{grid-template-columns:1fr;gap:4px}
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="app">
     <div class="topbar">
-      <img id="mainLogo" class="logo" alt="회사 로고">
-      <h1>N배송 세팅 가이드</h1>
-      <p class="sub">원활한 N배송 세팅을 위해 아래 정보를 입력해주세요.</p>
+      <div class="logo-wrap">
+        <img src="./logo.png" class="top-logo" alt="회사 로고">
+      </div>
+      <h1 id="pageTitle">N배송 세팅 가이드</h1>
+      <p class="sub" id="appSub">원활한 N배송 세팅을 위해 아래 정보를 입력해주세요.</p>
     </div>
 
-    <div id="inquiryWrap" class="card">
-      <form id="inquiryForm">
-        <div class="section">
-          <label class="label">1. 품고 나우에 로그인 계정으로 사용할 이메일 주소 / 담당자명 / 연락처를 입력해주세요. <span class="req">*</span></label>
-          <div class="grid">
-            <input class="input" id="loginEmail" type="email" placeholder="이메일 주소">
-            <input class="input" id="managerName" type="text" placeholder="담당자명">
-            <input class="input full" id="managerPhone" type="text" placeholder="연락처">
+    <div id="inquiryWrap">
+      <div class="form-section">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="loginEmail">1. 품고 나우에 로그인 계정으로 사용할 이메일 주소 / 담당자명 / 연락처를 입력해주세요.<span class="req">*</span></label>
           </div>
-        </div>
+          <div class="field">
+            <input class="input" id="loginEmail" type="email" placeholder="이메일 주소">
+          </div>
+          <div class="field">
+            <input class="input" id="managerName" type="text" placeholder="담당자명">
+          </div>
+          <div class="field full">
+            <input class="input" id="managerPhone" type="text" placeholder="연락처">
+          </div>
 
-        <div class="section">
-          <label class="label">2. 브랜드 주소지 및 대표번호를 입력해주세요. <span class="req">*</span></label>
-          <div class="grid">
+          <div class="field full">
+            <label for="brandAddress">2. 브랜드 주소지 및 대표번호를 입력해주세요.<span class="req">*</span></label>
+          </div>
+          <div class="field">
             <input class="input" id="brandAddress" type="text" placeholder="브랜드 주소지">
+          </div>
+          <div class="field">
             <input class="input" id="brandPhone" type="text" placeholder="대표번호">
           </div>
-        </div>
 
-        <div class="section">
-          <label class="label">3. 반품 입고지를 선택해주세요. <span class="req">*</span></label>
-          <div class="choice-row">
-            <label class="choice-pill"><input type="radio" name="returnDest" value="품고"> 품고</label>
-            <label class="choice-pill"><input type="radio" name="returnDest" value="자사 물류"> 자사 물류</label>
+          <div class="field full">
+            <label>3. 반품 입고지를 선택해주세요.<span class="req">*</span></label>
+            <div class="choice-row">
+              <label class="choice-pill"><input type="radio" name="returnDest" value="품고"> 품고</label>
+              <label class="choice-pill"><input type="radio" name="returnDest" value="자사 물류"> 자사 물류</label>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label for="inboundDate">4. 초도 입고 예정일을 입력해주세요.<span class="req">*</span></label>
+            <input class="input" id="inboundDate" type="date">
+          </div>
+
+          <div class="field full">
+            <label for="packType">5. 포장 방법을 선택해주세요.<span class="req">*</span></label>
+            <select class="select" id="packType">
+              <option value="">선택해주세요</option>
+              <option value="기본 포장">기본 포장</option>
+              <option value="에어캡 포장">에어캡 포장</option>
+              <option value="버블페이퍼 포장">버블페이퍼 포장</option>
+            </select>
+            <div class="hint">포장 방식에 따라 출고 방법과 비용이 달라질 수 있습니다.</div>
+            <div id="packPreviewArea" class="hidden" style="margin-top:12px;"></div>
+          </div>
+
+          <div class="field full">
+            <label>6. 운영 예정 상품(SKU) 중 단수 출고가 필요한 상품(SKU)이 있나요?<span class="req">*</span></label>
+            <div class="hint">합포 없이 상품(SKU) 자체에 송장을 부착하여 출고해야 하는 상품이 있는 경우 선택해주세요.</div>
+            <div class="choice-row">
+              <label class="choice-pill"><input type="radio" name="singleShipment" value="Y"> Y</label>
+              <label class="choice-pill"><input type="radio" name="singleShipment" value="N"> N</label>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>7. 초도 입고 예정 월에 예정된 행사 정보가 있나요?<span class="req">*</span></label>
+            <div class="choice-row">
+              <label class="choice-pill"><input type="radio" name="eventPlan" value="Y"> Y</label>
+              <label class="choice-pill"><input type="radio" name="eventPlan" value="N"> N</label>
+            </div>
+          </div>
+
+          <div id="eventFields" class="field full hidden">
+            <div class="form-grid" style="padding:0;">
+              <div class="field">
+                <input class="input" id="eventName" type="text" placeholder="행사명">
+              </div>
+              <div class="field">
+                <input class="input" id="eventDate" type="date">
+              </div>
+              <div class="field full">
+                <input class="input" id="eventExpectedCount" type="number" min="0" placeholder="예상 출고 송장 건 수">
+              </div>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label for="inquiryText">8. 품고에 궁금한 사항이 있으시면 편하게 기재해주세요.</label>
+            <textarea class="textarea" id="inquiryText" placeholder="예: 운영/시스템/반품/포장 관련 문의사항"></textarea>
           </div>
         </div>
 
-        <div class="section">
-          <label class="label">4. 초도 입고 예정일을 입력해주세요. <span class="req">*</span></label>
-          <input class="input" id="inboundDate" type="date">
+        <div id="inquiryError" class="error hidden" style="margin-top:16px;"></div>
+
+        <div class="footer-nav">
+          <div></div>
+          <button class="btn primary" id="openSummaryBtn" type="button">제출하기</button>
         </div>
-
-        <div class="section">
-          <label class="label">5. 포장 방법을 선택해주세요. <span class="req">*</span></label>
-          <select class="select" id="packType">
-            <option value="">선택해주세요</option>
-            <option value="기본 포장">기본 포장</option>
-            <option value="에어캡 포장">에어캡 포장</option>
-            <option value="버블페이퍼 포장">버블페이퍼 포장</option>
-          </select>
-          <div id="packPreview" class="hidden"></div>
-        </div>
-
-        <div class="section">
-          <label class="label">6. 운영 예정 상품(SKU) 중 단수 출고가 필요한 상품(SKU)이 있나요? <span class="req">*</span></label>
-          <div class="hint">합포 없이 상품(SKU) 자체에 송장을 부착하여 출고해야 하는 상품이 있는 경우 선택해주세요.</div>
-          <div class="choice-row" style="margin-top:10px;">
-            <label class="choice-pill"><input type="radio" name="singleShipment" value="Y"> Y</label>
-            <label class="choice-pill"><input type="radio" name="singleShipment" value="N"> N</label>
-          </div>
-        </div>
-
-        <div class="section">
-          <label class="label">7. 초도 입고 예정 월에 예정된 행사 정보가 있나요? <span class="req">*</span></label>
-          <div class="choice-row">
-            <label class="choice-pill"><input type="radio" name="eventPlan" value="Y"> Y</label>
-            <label class="choice-pill"><input type="radio" name="eventPlan" value="N"> N</label>
-          </div>
-
-          <div id="eventFields" class="grid hidden" style="margin-top:12px;">
-            <input class="input" id="eventName" type="text" placeholder="행사명">
-            <input class="input" id="eventDate" type="date">
-            <input class="input full" id="eventExpectedCount" type="number" min="0" placeholder="예상 출고 송장 건 수">
-          </div>
-        </div>
-
-        <div class="section">
-          <label class="label">8. 품고에 궁금한 사항이 있으시면 편하게 기재해주세요.</label>
-          <textarea class="textarea" id="inquiryText" placeholder="예: 운영/시스템/반품/포장 관련 문의사항"></textarea>
-        </div>
-
-        <div id="inquiryError" class="error hidden"></div>
-
-        <div class="actions">
-          <button class="btn" type="button" id="submitBtn">제출하기</button>
-        </div>
-      </form>
+      </div>
     </div>
 
-    <div id="guideWrap" class="card hidden" style="margin-top:24px;">
-      <div class="guide-head">
-        <img id="guideLogo" class="logo guide-logo" alt="회사 로고">
-        <div class="guide-chip">N배송 세팅 가이드</div>
-        <h2 class="guide-title">이제 세팅 가이드를 진행해주세요</h2>
-        <p class="guide-desc">사전 문의가 정상적으로 제출되었습니다.
-아래 순서대로 N배송 세팅을 진행해주세요.</p>
+    <div id="guideWrap" class="hidden">
+      <div class="layout">
+        <aside class="card sidebar">
+          <div class="sidebar-header">
+            <div class="side-head">
+              <div class="side-title">진행 단계</div>
+              <div class="progress" id="progressText">0 / 0 완료</div>
+            </div>
+          </div>
+
+          <div class="sidebar-steps">
+            <div class="accordion" id="stepAccordion">
+              <div class="loading">불러오는 중...</div>
+            </div>
+          </div>
+
+          <div class="sidebar-footer">
+            <div class="side-note">설명 과정은 카드 클릭 또는 이전/다음 버튼으로 볼 수 있습니다.</div>
+          </div>
+        </aside>
+
+        <main class="card main">
+          <div class="hero">
+            <div>
+              <div class="logo-wrap" style="margin-bottom:8px;">
+                <img src="./logo.png" class="top-logo" alt="회사 로고">
+              </div>
+              <div class="step-chip" id="heroChip">STEP</div>
+              <h2 id="heroTitle">불러오는 중...</h2>
+              <p id="heroDesc"></p>
+            </div>
+
+            <div class="actions">
+              <button class="btn secondary" id="faqBtn" type="button">자주 묻는 질문</button>
+            </div>
+          </div>
+
+          <section class="guide">
+            <div class="guide-section lead-box">
+              <div class="section-label">이번 단계에서 할 일</div>
+              <p class="lead-text" id="leadText">시트 데이터를 불러오는 중입니다.</p>
+            </div>
+
+            <div class="guide-section">
+              <div class="section-label">설정 과정</div>
+              <div class="process-strip-wrap">
+                <div class="process-strip" id="flowList"></div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <div class="section-label">자세히 안내드릴게요</div>
+              <div class="detail-list" id="detailList"></div>
+            </div>
+
+            <div class="guide-section">
+              <div class="section-label">이것만 확인하면 돼요</div>
+              <div class="check-area" id="checkArea"></div>
+            </div>
+          </section>
+
+          <div class="footer-nav">
+            <button class="btn secondary" id="prevBtn" type="button">이전</button>
+            <button class="btn primary" id="nextBtn" type="button">다음</button>
+          </div>
+
+          <div id="errorBox"></div>
+        </main>
       </div>
+    </div>
+  </div>
 
-      <div class="guide-steps">
-        <button class="guide-step-btn active" type="button" data-step="0">1. 고객사 등록</button>
-        <button class="guide-step-btn" type="button" data-step="1">2. 입고 가이드</button>
-        <button class="guide-step-btn" type="button" data-step="2">3. 품고 나우 설정</button>
-        <button class="guide-step-btn" type="button" data-step="3">4. 최종 확인</button>
+  <div class="modal" id="faqModal" aria-hidden="true">
+    <div class="modal-backdrop" id="faqBackdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="faqModalTitle">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="faqModalTitle">FAQ</h3>
+          <p class="modal-sub" id="faqModalSub">현재 단계에서 자주 막히는 항목을 정리했습니다.</p>
+        </div>
+        <button class="icon-btn" id="faqCloseBtn" type="button" aria-label="닫기">×</button>
       </div>
-
-      <div id="guideStepPanels">
-        <div class="guide-panel" data-panel="0">
-          <h3>고객사 등록</h3>
-          <p>고객사 기본 정보와 운영 정보를 기준으로 내부 등록을 진행합니다.</p>
-          <div class="guide-box">
-            <div class="guide-box-title">확인할 내용</div>
-            <p class="guide-box-text">브랜드 정보 / 반품 회수지 / 담당자 정보가 정확한지 확인해주세요.</p>
-          </div>
-          <div class="guide-box">
-            <div class="guide-box-title">안내</div>
-            <p class="guide-box-text">제출된 사전 문의 내용을 기준으로 고객사 등록이 순차적으로 진행됩니다.</p>
-          </div>
-        </div>
-
-        <div class="guide-panel hidden" data-panel="1">
-          <h3>입고 가이드</h3>
-          <p>초도 입고 전 확인해야 할 입고 기준과 유의사항을 확인해주세요.</p>
-          <div class="guide-box">
-            <div class="guide-box-title">확인할 내용</div>
-            <p class="guide-box-text">입고 일정 / 포장 기준 / 반품 처리 기준을 확인해주세요.</p>
-          </div>
-          <div class="guide-box">
-            <div class="guide-box-title">유의사항</div>
-            <p class="guide-box-text">입고 일정이 변경될 경우 담당자에게 사전 공유 부탁드립니다.</p>
-          </div>
-        </div>
-
-        <div class="guide-panel hidden" data-panel="2">
-          <h3>품고 나우 설정</h3>
-          <p>품고 나우 시스템 접속 후 기본 설정을 진행해주세요.</p>
-          <div class="guide-box">
-            <div class="guide-box-title">진행 항목</div>
-            <p class="guide-box-text">로그인 / 기본 계정 확인 / 운영 정보 반영 여부 확인</p>
-          </div>
-          <div class="guide-box">
-            <div class="guide-box-title">안내</div>
-            <p class="guide-box-text">로그인 관련 문의가 있을 경우 품고 담당자에게 문의해주세요.</p>
-          </div>
-        </div>
-
-        <div class="guide-panel hidden" data-panel="3">
-          <h3>최종 확인</h3>
-          <p>모든 세팅이 완료되었는지 마지막으로 점검해주세요.</p>
-          <div class="guide-box">
-            <div class="guide-box-title">최종 체크</div>
-            <p class="guide-box-text">입고 일정 / 포장 기준 / 담당자 정보 / 행사 정보 반영 여부 확인</p>
-          </div>
-          <div class="guide-box">
-            <div class="guide-box-title">마무리</div>
-            <p class="guide-box-text">추가 문의 사항이 있으면 품고 감곡센터로 편하게 문의해주세요.</p>
-          </div>
-        </div>
-      </div>
+      <div class="faq-list" id="faqList"></div>
     </div>
   </div>
 
   <div class="modal" id="summaryModal" aria-hidden="true">
     <div class="modal-backdrop" id="summaryBackdrop"></div>
-    <div class="modal-panel">
-      <h3 style="margin-top:0;">입력 내용 확인</h3>
-      <p style="color:#6b7280;">제출 전에 입력하신 내용을 한 번 더 확인해주세요.</p>
-      <div class="summary-list" id="summaryList"></div>
-      <div class="modal-actions">
-        <button class="btn secondary" type="button" id="summaryEditBtn">수정하기</button>
-        <button class="btn" type="button" id="summarySubmitBtn">제출 완료</button>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="summaryTitle">입력 내용 확인</h3>
+          <p class="modal-sub">제출 전에 입력하신 내용을 한 번 더 확인해주세요.</p>
+        </div>
+        <button class="icon-btn" id="summaryCloseBtn" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="summary-box">
+        <h3>요약</h3>
+        <div class="summary-list" id="summaryList"></div>
+      </div>
+      <div class="footer-nav">
+        <button class="btn secondary" id="summaryEditBtn" type="button">수정하기</button>
+        <button class="btn primary" id="summarySubmitBtn" type="button">제출 완료</button>
       </div>
     </div>
   </div>
 
   <div class="modal" id="submitModal" aria-hidden="true">
     <div class="modal-backdrop"></div>
-    <div class="modal-panel">
-      <h3 style="margin-top:0;">제출이 완료되었습니다</h3>
-      <p style="color:#6b7280;">사전 문의 내용이 정상적으로 접수되었습니다.</p>
-      <p style="margin:18px 0 0;">아래 버튼을 눌러 N배송 세팅 가이드를 확인해주세요.</p>
-      <div class="modal-actions" style="margin-top:24px;">
-        <button class="btn" type="button" id="goGuideBtn">가이드 보러가기</button>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="submitTitle">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="submitTitle">제출이 완료되었습니다</h3>
+          <p class="modal-sub">사전 문의 내용이 정상적으로 접수되었습니다.</p>
+        </div>
+      </div>
+      <div class="summary-box">
+        아래 버튼을 눌러 N배송 세팅 가이드를 확인해주세요.
+      </div>
+      <div class="footer-nav">
+        <div></div>
+        <button class="btn primary" id="goGuideBtn" type="button">가이드 보러가기</button>
       </div>
     </div>
   </div>
 
-  <div class="modal image-modal" id="imageModal" aria-hidden="true">
+  <div class="modal" id="imageModal" aria-hidden="true">
     <div class="modal-backdrop" id="imageBackdrop"></div>
-    <div class="modal-panel">
-      <img id="imageModalTarget" src="" alt="포장 예시 이미지">
+    <div class="modal-panel image-modal-panel" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="imageModalTitle">이미지 보기</h3>
+        </div>
+        <button class="icon-btn" id="imageCloseBtn" type="button" aria-label="닫기">×</button>
+      </div>
+      <img id="imageModalTarget" src="" alt="확대 이미지">
     </div>
   </div>
 
   <script>
     const CONFIG = {
+      SPREADSHEET_ID: '1JzTyCkZHBMEQiKNqIXLB8KUiVY8Y-33KICB2lwM06GQ',
       GAS_WEBAPP_URL: 'https://script.google.com/macros/s/AKfycbwwxe5ZigCmq-tjXyGZJUK1Nomije28Fu6Ueb-pw_d2KUsTsGHE5lcEeG505gfcVV-M/exec',
-      LOGO_URL: 'https://drive.google.com/thumbnail?id=1tgVRxlRQ63QkShpmz1434yuWDD9MpKjw&sz=w1000',
+      SHEETS: {
+        steps: 'steps',
+        contents: 'contents',
+        checklists: 'checklists',
+        faqs: 'faqs',
+        clients: '고객사링크'
+      },
+      DEFAULT_SUBTITLE: '원활한 N배송 세팅을 위해 아래 정보를 입력해주세요.',
       PACK_OPTIONS: {
         '기본 포장': {
           title: '기본 포장',
@@ -594,118 +514,288 @@
         },
         '에어캡 포장': {
           title: '에어캡 포장',
-          desc: '제품을 에어캡으로 완충 포장 후 출고하는 방식입니다.\n추가 비용이 발생합니다.',
+          desc: '제품을 에어캡으로 완충 포장 후 출고하는 방식입니다.\\n추가 비용이 발생합니다.',
           image: 'https://drive.google.com/file/d/110e8PsWHq-2XkOYg7bXiONNn_1XpA-ip/view?usp=drive_link'
         },
         '버블페이퍼 포장': {
           title: '버블페이퍼 포장',
-          desc: '제품을 버블페이퍼로 완충 포장 후 출고하는 방식입니다.\n추가 비용이 발생합니다.',
+          desc: '제품을 버블페이퍼로 완충 포장 후 출고하는 방식입니다.\\n추가 비용이 발생합니다.',
           image: 'https://drive.google.com/file/d/1W2CYbdHLX7Uj2InTm-0HH-CaKnmAOomg/view?usp=drive_link'
         }
       }
     };
 
+    let DATA = [];
+    let CLIENT_INFO = null;
+    let currentIndex = 0;
+    let currentItemIndex = 0;
+    let openStepId = '';
+    let state = loadState();
+
     const params = new URLSearchParams(location.search);
     const clientCode = params.get('client') || '';
 
-    const packType = document.getElementById('packType');
-    const packPreview = document.getElementById('packPreview');
-    const eventFields = document.getElementById('eventFields');
-    const inquiryError = document.getElementById('inquiryError');
-    const summaryModal = document.getElementById('summaryModal');
-    const summaryList = document.getElementById('summaryList');
-    const submitModal = document.getElementById('submitModal');
-    const imageModal = document.getElementById('imageModal');
-    const imageModalTarget = document.getElementById('imageModalTarget');
     const inquiryWrap = document.getElementById('inquiryWrap');
     const guideWrap = document.getElementById('guideWrap');
 
-    applyLogos();
+    const packType = document.getElementById('packType');
+    const packPreviewArea = document.getElementById('packPreviewArea');
+    const eventFields = document.getElementById('eventFields');
+    const inquiryError = document.getElementById('inquiryError');
 
-    document.querySelectorAll('input[name="eventPlan"]').forEach(el => {
-      el.addEventListener('change', () => {
-        const value = document.querySelector('input[name="eventPlan"]:checked')?.value || '';
-        eventFields.classList.toggle('hidden', value !== 'Y');
+    const stepAccordion = document.getElementById('stepAccordion');
+    const progressText = document.getElementById('progressText');
+    const heroChip = document.getElementById('heroChip');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroDesc = document.getElementById('heroDesc');
+    const leadText = document.getElementById('leadText');
+    const flowList = document.getElementById('flowList');
+    const detailList = document.getElementById('detailList');
+    const checkArea = document.getElementById('checkArea');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const faqBtn = document.getElementById('faqBtn');
+    const faqModal = document.getElementById('faqModal');
+    const faqBackdrop = document.getElementById('faqBackdrop');
+    const faqCloseBtn = document.getElementById('faqCloseBtn');
+    const faqModalTitle = document.getElementById('faqModalTitle');
+    const faqModalSub = document.getElementById('faqModalSub');
+    const faqList = document.getElementById('faqList');
+    const errorBox = document.getElementById('errorBox');
+    const pageTitle = document.getElementById('pageTitle');
+    const appSub = document.getElementById('appSub');
+
+    const summaryModal = document.getElementById('summaryModal');
+    const summaryBackdrop = document.getElementById('summaryBackdrop');
+    const summaryCloseBtn = document.getElementById('summaryCloseBtn');
+    const summaryEditBtn = document.getElementById('summaryEditBtn');
+    const summarySubmitBtn = document.getElementById('summarySubmitBtn');
+    const summaryList = document.getElementById('summaryList');
+    const openSummaryBtn = document.getElementById('openSummaryBtn');
+
+    const submitModal = document.getElementById('submitModal');
+    const goGuideBtn = document.getElementById('goGuideBtn');
+
+    const imageModal = document.getElementById('imageModal');
+    const imageBackdrop = document.getElementById('imageBackdrop');
+    const imageCloseBtn = document.getElementById('imageCloseBtn');
+    const imageModalTarget = document.getElementById('imageModalTarget');
+
+    google.charts.load('current');
+    google.charts.setOnLoadCallback(init);
+
+    async function init() {
+      bindEvents();
+      try {
+        const [stepsRows, contentsRows, checklistRows, faqRows, clientRows] = await Promise.all([
+          querySheet(CONFIG.SHEETS.steps),
+          querySheet(CONFIG.SHEETS.contents),
+          querySheet(CONFIG.SHEETS.checklists),
+          querySheet(CONFIG.SHEETS.faqs),
+          querySheet(CONFIG.SHEETS.clients)
+        ]);
+
+        if (!clientCode) throw new Error('고객사 코드가 없습니다. 링크에 ?client=고객사코드 형식이 필요합니다.');
+
+        CLIENT_INFO = findClientInfo_(clientRows, clientCode);
+        if (!CLIENT_INFO) throw new Error('유효하지 않은 고객사 링크입니다. 고객사코드를 확인해주세요.');
+        if (String(CLIENT_INFO['사용여부'] || '').toUpperCase() === 'N') throw new Error('현재 비활성화된 고객사 링크입니다.');
+
+        const customerName = String(CLIENT_INFO['고객사명'] || '').trim();
+        document.title = `${customerName} | N배송 세팅 가이드`;
+        pageTitle.textContent = customerName ? `${customerName} N배송 세팅 가이드` : 'N배송 세팅 가이드';
+        appSub.textContent = customerName
+          ? `${customerName} 전용 N배송 세팅 가이드입니다.`
+          : CONFIG.DEFAULT_SUBTITLE;
+
+        DATA = buildData(stepsRows, contentsRows, checklistRows, faqRows);
+        if (!DATA.length) throw new Error('활성화된 steps 데이터가 없습니다.');
+
+        state = loadState();
+        currentIndex = Math.min(state.currentIndex ?? 0, DATA.length - 1);
+        openStepId = state.openStepId || DATA[currentIndex].id;
+        currentItemIndex = Math.max(0, state.currentItemIndex ?? 0);
+
+        render();
+      } catch (err) {
+        showError(
+          '시트 데이터를 불러오지 못했습니다.\\n\\n' +
+          '1) 시트 탭 이름 확인\\n' +
+          '2) 링크에 ?client=고객사코드 포함 여부 확인\\n' +
+          '3) 고객사링크 시트 사용여부 확인\\n\\n' +
+          '상세 오류:\\n' + (err?.message || String(err))
+        );
+      }
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('input[name="eventPlan"]').forEach(el => {
+        el.addEventListener('change', () => {
+          const value = document.querySelector('input[name="eventPlan"]:checked')?.value || '';
+          eventFields.classList.toggle('hidden', value !== 'Y');
+        });
       });
-    });
 
-    packType.addEventListener('change', () => renderPackPreview(packType.value));
-    document.getElementById('submitBtn').addEventListener('click', openSummary);
-    document.getElementById('summaryEditBtn').addEventListener('click', closeSummary);
-    document.getElementById('summaryBackdrop').addEventListener('click', closeSummary);
-    document.getElementById('summarySubmitBtn').addEventListener('click', submitInquiry);
-    document.getElementById('imageBackdrop').addEventListener('click', closeImageModal);
-    document.getElementById('goGuideBtn').addEventListener('click', () => {
-      submitModal.classList.remove('open');
-      showGuideAfterInquiry();
-    });
+      packType.addEventListener('change', () => renderPackPreview(packType.value));
+      openSummaryBtn.addEventListener('click', handleOpenSummary);
 
-    document.addEventListener('click', function(e){
-      const btn = e.target.closest('.guide-step-btn');
-      if (!btn) return;
+      summaryBackdrop.addEventListener('click', closeSummaryModal);
+      summaryCloseBtn.addEventListener('click', closeSummaryModal);
+      summaryEditBtn.addEventListener('click', closeSummaryModal);
+      summarySubmitBtn.addEventListener('click', submitInquiry);
 
-      const step = btn.getAttribute('data-step');
-
-      document.querySelectorAll('.guide-step-btn').forEach(el => {
-        el.classList.toggle('active', el === btn);
+      goGuideBtn.addEventListener('click', () => {
+        submitModal.classList.remove('open');
+        showGuideAfterInquiry();
       });
 
-      document.querySelectorAll('.guide-panel').forEach(panel => {
-        panel.classList.toggle('hidden', panel.getAttribute('data-panel') !== step);
-      });
-    });
+      imageBackdrop.addEventListener('click', closeImageModal);
+      imageCloseBtn.addEventListener('click', closeImageModal);
 
-    function applyLogos() {
-      ['mainLogo', 'guideLogo'].forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
+      faqBtn.addEventListener('click', openFaqModal);
+      faqCloseBtn.addEventListener('click', closeFaqModal);
+      faqBackdrop.addEventListener('click', closeFaqModal);
 
-        el.onerror = () => {
-          el.style.display = 'none';
-        };
+      prevBtn.addEventListener('click', handlePrev);
+      nextBtn.addEventListener('click', handleNext);
 
-        el.onload = () => {
-          el.style.display = 'block';
-        };
-
-        el.src = CONFIG.LOGO_URL;
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          if (faqModal.classList.contains('open')) closeFaqModal();
+          if (summaryModal.classList.contains('open')) closeSummaryModal();
+          if (imageModal.classList.contains('open')) closeImageModal();
+        }
       });
     }
 
-    function normalizeImageUrl(url) {
+    function querySheet(sheetName) {
+      return new Promise((resolve, reject) => {
+        const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SPREADSHEET_ID}/gviz/tq?sheet=${encodeURIComponent(sheetName)}`;
+        const query = new google.visualization.Query(url);
+        query.setQuery('select *');
+        query.send(response => {
+          if (response.isError()) {
+            reject(new Error(response.getMessage() || `시트 조회 실패: ${sheetName}`));
+            return;
+          }
+          const dt = response.getDataTable();
+          const cols = [];
+          for (let c = 0; c < dt.getNumberOfColumns(); c++) {
+            cols.push(String(dt.getColumnLabel(c) || dt.getColumnId(c) || `col_${c}`).trim());
+          }
+          const rows = [];
+          for (let r = 0; r < dt.getNumberOfRows(); r++) {
+            const row = {};
+            for (let c = 0; c < dt.getNumberOfColumns(); c++) {
+              const raw = dt.getValue(r, c);
+              const formatted = dt.getFormattedValue(r, c);
+              row[cols[c]] = formatted ?? raw ?? '';
+            }
+            rows.push(row);
+          }
+          resolve(rows);
+        });
+      });
+    }
+
+    function buildData(stepsRows, contentsRows, checklistRows, faqRows) {
+      const activeSteps = stepsRows
+        .filter(r => String(r['사용여부'] || '').toUpperCase() !== 'N')
+        .sort((a, b) => Number(a['단계순서'] || 0) - Number(b['단계순서'] || 0));
+
+      return activeSteps.map(step => {
+        const stepId = String(step['단계ID'] || '').trim();
+
+        const items = contentsRows
+          .filter(r => String(r['단계ID'] || '').trim() === stepId)
+          .sort((a, b) => Number(a['항목순서'] || 0) - Number(b['항목순서'] || 0))
+          .map(r => ({
+            title: r['항목명'] || '',
+            type: String(r['항목타입'] || 'section').toLowerCase(),
+            bodyHtml: r['본문HTML'] || '',
+            noteHtml: r['안내HTML'] || '',
+            warnHtml: r['주의HTML'] || '',
+            imageUrl: r['이미지URL'] || '',
+            imageCaption: r['이미지캡션'] || '',
+            linkText: r['버튼텍스트'] || '',
+            linkUrl: r['버튼링크'] || ''
+          }));
+
+        const checks = checklistRows
+          .filter(r => String(r['단계ID'] || '').trim() === stepId)
+          .sort((a, b) => Number(a['체크순서'] || 0) - Number(b['체크순서'] || 0))
+          .map(r => r['체크문구'] || '');
+
+        const faqs = faqRows
+          .filter(r => String(r['단계ID'] || '').trim() === stepId)
+          .sort((a, b) => Number(a['FAQ순서'] || 0) - Number(b['FAQ순서'] || 0))
+          .map(r => ({
+            q: r['질문'] || '',
+            aHtml: r['답변HTML'] || ''
+          }));
+
+        return {
+          id: stepId,
+          title: step['단계명'] || '',
+          desc: step['단계설명'] || '',
+          leadHtml: step['리드문구'] || '',
+          items,
+          checks,
+          faqs
+        };
+      });
+    }
+
+    function findClientInfo_(clientRows, code) {
+      return clientRows.find(r => String(r['고객사코드'] || '').trim() === String(code || '').trim()) || null;
+    }
+
+    function normalizeImageUrl_(url) {
       const raw = String(url || '').trim();
       if (!raw) return '';
-      const m1 = raw.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (m1) return `https://drive.google.com/thumbnail?id=${m1[1]}&sz=w1600`;
-      const m2 = raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (m2) return `https://drive.google.com/thumbnail?id=${m2[1]}&sz=w1600`;
+      const fileMatch = raw.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileMatch[1])}&sz=w1600`;
+      }
+      const idMatch = raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (idMatch && idMatch[1]) {
+        return `https://drive.google.com/thumbnail?id=${encodeURIComponent(idMatch[1])}&sz=w1600`;
+      }
       return raw;
     }
 
     function renderPackPreview(value) {
       const info = CONFIG.PACK_OPTIONS[value];
       if (!info) {
-        packPreview.classList.add('hidden');
-        packPreview.innerHTML = '';
+        packPreviewArea.classList.add('hidden');
+        packPreviewArea.innerHTML = '';
         return;
       }
 
-      const src = normalizeImageUrl(info.image);
-      packPreview.innerHTML = `
-        <div class="pack-preview">
-          <img src="${src}" alt="${escapeHtml(info.title)}" id="packPreviewImage">
-          <div>
+      const src = normalizeImageUrl_(info.image);
+      packPreviewArea.innerHTML = `
+        <div class="pack-card">
+          <button class="pack-thumb" type="button" data-src="${escapeAttr(src)}">
+            <img src="${escapeAttr(src)}" alt="${escapeAttr(info.title)}">
+          </button>
+          <div class="pack-meta">
             <h4>${escapeHtml(info.title)}</h4>
             <p>${escapeHtml(info.desc).replaceAll('\\n', '<br>')}</p>
           </div>
         </div>
       `;
-      packPreview.classList.remove('hidden');
+      packPreviewArea.classList.remove('hidden');
 
-      document.getElementById('packPreviewImage').addEventListener('click', () => {
-        imageModalTarget.src = src;
-        imageModal.classList.add('open');
-      });
+      const btn = packPreviewArea.querySelector('.pack-thumb');
+      if (btn) {
+        btn.addEventListener('click', () => openImageModal(btn.getAttribute('data-src')));
+      }
+    }
+
+    function openImageModal(src) {
+      if (!src) return;
+      imageModalTarget.src = src;
+      imageModal.classList.add('open');
     }
 
     function closeImageModal() {
@@ -755,7 +845,7 @@
       return '';
     }
 
-    function openSummary() {
+    function handleOpenSummary() {
       const v = getFormValues();
       const error = validateForm(v);
       if (error) {
@@ -792,12 +882,12 @@
       summaryModal.classList.add('open');
     }
 
-    function closeSummary() {
+    function closeSummaryModal() {
       summaryModal.classList.remove('open');
     }
 
     async function submitInquiry() {
-      closeSummary();
+      closeSummaryModal();
       submitModal.classList.add('open');
 
       try {
@@ -816,7 +906,6 @@
           throw new Error('웹앱 응답을 읽지 못했습니다.');
         }
         if (!data.ok) throw new Error(data.message || '제출에 실패했습니다.');
-
       } catch (e) {
         submitModal.classList.remove('open');
         inquiryError.textContent = e.message || '제출 중 오류가 발생했습니다.';
@@ -828,6 +917,275 @@
       inquiryWrap.classList.add('hidden');
       guideWrap.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      render();
+    }
+
+    function storageKey() {
+      return `poomgo_onboarding_${CONFIG.SPREADSHEET_ID}_${clientCode || 'default'}`;
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(storageKey());
+        return raw ? JSON.parse(raw) : { checks: {}, currentIndex: 0, currentItemIndex: 0, openStepId: '' };
+      } catch (_) {
+        return { checks: {}, currentIndex: 0, currentItemIndex: 0, openStepId: '' };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(storageKey(), JSON.stringify({
+        checks: state.checks || {},
+        currentIndex,
+        currentItemIndex,
+        openStepId
+      }));
+    }
+
+    function getChecks(stepId) {
+      if (!state.checks) state.checks = {};
+      if (!state.checks[stepId]) state.checks[stepId] = [];
+      return state.checks[stepId];
+    }
+
+    function isStepDone(step) {
+      const arr = getChecks(step.id);
+      return step.checks.length > 0 && step.checks.every((_, i) => !!arr[i]);
+    }
+
+    function statusOf(step, idx) {
+      if (isStepDone(step)) return { text:'완료', cls:'done' };
+      if (idx === currentIndex) return { text:'진행중', cls:'current' };
+      return { text:'대기', cls:'' };
+    }
+
+    function getProcessTheme(title='') {
+      const t = String(title).replace(/\s/g, '');
+      return (t.includes('고객사등록') || t.includes('입고가이드')) ? 'brand' : 'naver';
+    }
+
+    function render() {
+      renderAccordion();
+      renderMain();
+      errorBox.innerHTML = '';
+    }
+
+    function renderAccordion() {
+      stepAccordion.innerHTML = '';
+      const doneCount = DATA.filter(isStepDone).length;
+      progressText.textContent = `${doneCount} / ${DATA.length} 완료`;
+
+      DATA.forEach((step, idx) => {
+        const s = statusOf(step, idx);
+        const item = document.createElement('div');
+        item.className = 'step-item' + (openStepId === step.id ? ' active' : '');
+        item.innerHTML = `
+          <button class="step-header" type="button">
+            <div class="step-num">${idx + 1}</div>
+            <div class="step-main">
+              <div class="step-title">${escapeHtml(step.title)}</div>
+              <div class="step-state"><span class="dot ${s.cls}"></span><span>${s.text}</span></div>
+            </div>
+            <div class="chev">⌄</div>
+          </button>
+          <div class="step-body">
+            <div class="step-sublist">
+              ${step.items.map(x => `<div class="step-subitem"><span>ㄴ</span><span>${escapeHtml(x.title)}</span></div>`).join('') || '<div class="empty">하위 항목 없음</div>'}
+            </div>
+          </div>
+        `;
+        item.querySelector('.step-header').addEventListener('click', () => {
+          currentIndex = idx;
+          currentItemIndex = 0;
+          openStepId = openStepId === step.id ? '' : step.id;
+          saveState();
+          render();
+        });
+        stepAccordion.appendChild(item);
+      });
+
+      scrollCurrentStepIntoView();
+    }
+
+    function renderMain() {
+      const step = DATA[currentIndex];
+      heroChip.textContent = `STEP ${currentIndex + 1}`;
+      heroTitle.textContent = step.title;
+      heroDesc.textContent = convertEscapedNewlines_(step.desc);
+      leadText.innerHTML = convertEscapedNewlines_(step.leadHtml || '<span class="empty">리드문구가 비어 있습니다.</span>');
+
+      const checks = getChecks(step.id);
+      const checkedCount = checks.filter(Boolean).length;
+      if (currentItemIndex > step.items.length - 1) currentItemIndex = 0;
+
+      flowList.innerHTML = '';
+      step.items.forEach((item, idx) => {
+        const card = document.createElement('button');
+        let cls = `process-card ${getProcessTheme(item.title)}`;
+        if (idx < checkedCount) cls += ' done';
+        if (idx === currentItemIndex) cls += ' current';
+        card.type = 'button';
+        card.className = cls;
+        card.setAttribute('data-step', `STEP ${idx + 1}`);
+        card.innerHTML = `<span>${escapeHtml(item.title)}</span>`;
+        card.addEventListener('click', () => {
+          currentItemIndex = idx;
+          saveState();
+          renderMain();
+        });
+        flowList.appendChild(card);
+      });
+
+      detailList.innerHTML = '';
+      step.items.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'detail-item' + (idx === currentItemIndex ? '' : ' hidden');
+        div.innerHTML = renderDetail(item);
+        detailList.appendChild(div);
+      });
+
+      checkArea.innerHTML = '';
+      step.checks.forEach((label, i) => {
+        const row = document.createElement('label');
+        row.className = 'check-row';
+        row.innerHTML = `<input type="checkbox" ${checks[i] ? 'checked' : ''}><span>${escapeHtml(label).replaceAll('\\n', '\n')}</span>`;
+        row.querySelector('input').addEventListener('change', e => {
+          checks[i] = e.target.checked;
+          saveState();
+        });
+        checkArea.appendChild(row);
+      });
+
+      prevBtn.disabled = currentIndex === 0 && currentItemIndex === 0;
+      nextBtn.disabled = currentIndex === DATA.length - 1 && currentItemIndex === step.items.length - 1;
+    }
+
+    function renderDetail(item) {
+      const title = `<h3 class="detail-title">${escapeHtml(item.title)}</h3>`;
+      const body = item.bodyHtml ? `<div class="detail-body">${wrapTables(convertEscapedNewlines_(item.bodyHtml))}</div>` : '';
+      const note = item.noteHtml ? `<div class="subnote">${convertEscapedNewlines_(item.noteHtml)}</div>` : '';
+      const warn = item.warnHtml ? `<div class="warn"><strong>주의</strong>${convertEscapedNewlines_(item.warnHtml)}</div>` : '';
+      const imageUrl = normalizeImageUrl_(item.imageUrl);
+      const image = imageUrl
+        ? `<div class="render-image"><img src="${escapeAttr(imageUrl)}" alt="${escapeAttr(item.title)}">${item.imageCaption ? `<div class="render-caption">${escapeHtml(item.imageCaption).replaceAll('\\n','\n')}</div>` : ''}</div>`
+        : '';
+
+      if (item.type === 'path') {
+        return `${title}<div class="subnote">${escapeHtml(stripHtml(item.bodyHtml)).replaceAll('>', '→').replaceAll('\\n', '\n')}</div>${warn}`;
+      }
+
+      if (item.type === 'link') {
+        return `${title}${body}${warn}${item.linkUrl ? `<div style="margin-top:12px;"><a class="btn primary" href="${escapeAttr(item.linkUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.linkText || '바로가기')}</a></div>` : ''}`;
+      }
+
+      return `${title}${body}${image}${note}${warn}`;
+    }
+
+    function convertEscapedNewlines_(text) {
+      return String(text || '').replace(/\\n/g, '\n');
+    }
+
+    function wrapTables(html) {
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+      temp.querySelectorAll('table').forEach(table => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-wrap';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
+      return temp.innerHTML;
+    }
+
+    function stripHtml(html) {
+      const div = document.createElement('div');
+      div.innerHTML = html || '';
+      return div.textContent || div.innerText || '';
+    }
+
+    function openFaqModal() {
+      const step = DATA[currentIndex];
+      faqModalTitle.textContent = `${step.title} FAQ`;
+      faqModalSub.textContent = '현재 단계에서 자주 막히는 항목을 정리했습니다.';
+      faqList.innerHTML = '';
+
+      if (!step.faqs.length) {
+        faqList.innerHTML = '<div class="empty">등록된 FAQ가 없습니다.</div>';
+      } else {
+        step.faqs.forEach((faq, idx) => {
+          const item = document.createElement('div');
+          item.className = 'faq-item' + (idx === 0 ? ' open' : '');
+          item.innerHTML = `<button class="faq-q" type="button"><span>${escapeHtml(faq.q)}</span><span class="faq-arrow">⌄</span></button><div class="faq-a">${convertEscapedNewlines_(faq.aHtml)}</div>`;
+          item.querySelector('.faq-q').addEventListener('click', () => item.classList.toggle('open'));
+          faqList.appendChild(item);
+        });
+      }
+
+      faqModal.classList.add('open');
+    }
+
+    function closeFaqModal() {
+      faqModal.classList.remove('open');
+    }
+
+    function handlePrev() {
+      if (currentItemIndex > 0) {
+        currentItemIndex -= 1;
+        saveState();
+        renderMain();
+        return;
+      }
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        const prevStep = DATA[currentIndex];
+        currentItemIndex = Math.max((prevStep.items?.length || 1) - 1, 0);
+        openStepId = DATA[currentIndex].id;
+        saveState();
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function handleNext() {
+      const step = DATA[currentIndex];
+      if (currentItemIndex < step.items.length - 1) {
+        currentItemIndex += 1;
+        saveState();
+        renderMain();
+        return;
+      }
+      if (currentIndex < DATA.length - 1) {
+        currentIndex += 1;
+        currentItemIndex = 0;
+        openStepId = DATA[currentIndex].id;
+        saveState();
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function scrollCurrentStepIntoView() {
+      const container = document.querySelector('.sidebar-steps');
+      if (!container) return;
+      const active = container.querySelector('.step-item.active');
+      if (!active) return;
+      const containerRect = container.getBoundingClientRect();
+      const activeRect = active.getBoundingClientRect();
+      const offset = activeRect.top - containerRect.top - containerRect.height / 2 + activeRect.height / 2;
+      container.scrollBy({ top: offset, behavior: 'smooth' });
+    }
+
+    function showError(message) {
+      inquiryWrap.classList.add('hidden');
+      guideWrap.classList.remove('hidden');
+      errorBox.innerHTML = `<div class="error">${escapeHtml(message)}</div>`;
+      stepAccordion.innerHTML = `<div class="error">${escapeHtml(message)}</div>`;
+      heroTitle.textContent = '불러오기 실패';
+      heroDesc.textContent = '';
+      leadText.textContent = '시트 연결 상태를 확인해주세요.';
+      flowList.innerHTML = '';
+      detailList.innerHTML = '';
+      checkArea.innerHTML = '';
     }
 
     function escapeHtml(str='') {
@@ -837,6 +1195,10 @@
         .replaceAll('>','&gt;')
         .replaceAll('"','&quot;')
         .replaceAll("'","&#39;");
+    }
+
+    function escapeAttr(str='') {
+      return escapeHtml(str);
     }
   </script>
 </body>
