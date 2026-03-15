@@ -28,6 +28,7 @@
       --progress-fill:#0040d1;
       --card-selected:#eef4ff;
       --card-border:#cddcff;
+      --soft:#f8fafc;
     }
 
     *{box-sizing:border-box}
@@ -54,8 +55,8 @@
     }
 
     .wizard-window{
-      width:min(1120px, 100%);
-      height:min(840px, calc(100vh - 24px));
+      width:min(1140px, 100%);
+      height:min(850px, calc(100vh - 24px));
       background:var(--panel);
       border:1px solid #cfd8e4;
       border-radius:20px;
@@ -118,7 +119,7 @@
 
     .right-pane{
       width:100%;
-      max-width:900px;
+      max-width:920px;
       margin:0 auto;
       min-width:0;
       min-height:0;
@@ -129,7 +130,7 @@
     }
 
     .pane-top{
-      padding:28px 34px 0;
+      padding:22px 28px 0;
       flex:0 0 auto;
     }
 
@@ -137,8 +138,8 @@
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap:16px;
-      margin-bottom:14px;
+      gap:14px;
+      margin-bottom:12px;
     }
 
     .progress-left{
@@ -150,18 +151,18 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:8px 12px;
+      padding:7px 12px;
       border-radius:999px;
       background:var(--brand-soft);
       color:var(--brand);
       font-size:13px;
       font-weight:900;
-      margin-bottom:10px;
+      margin-bottom:8px;
     }
 
     .pane-title{
-      margin:0 0 6px;
-      font-size:28px;
+      margin:0 0 4px;
+      font-size:27px;
       line-height:1.2;
       letter-spacing:-.03em;
       font-weight:900;
@@ -205,7 +206,7 @@
     .pane-content{
       flex:1 1 auto;
       min-height:0;
-      padding:22px 34px 18px;
+      padding:16px 28px 14px;
       overflow:hidden;
       display:flex;
       flex-direction:column;
@@ -215,9 +216,9 @@
       flex:1 1 auto;
       min-height:0;
       border:1px solid #e8edf3;
-      border-radius:24px;
+      border-radius:22px;
       background:linear-gradient(180deg,#ffffff 0%, #fbfcfe 100%);
-      padding:24px;
+      padding:18px;
       overflow:hidden;
       display:flex;
       flex-direction:column;
@@ -225,7 +226,7 @@
     }
 
     .section-label{
-      margin:0 0 10px;
+      margin:0 0 8px;
       font-size:12px;
       font-weight:900;
       color:#7b8794;
@@ -234,9 +235,9 @@
     }
 
     .hero-box{
-      margin-bottom:12px;
+      margin-bottom:10px;
       padding:12px 14px;
-      border-radius:18px;
+      border-radius:16px;
       border:1px solid #e4ebf8;
       background:linear-gradient(180deg,#fcfdff 0%, #f4f7ff 100%);
       flex:0 0 auto;
@@ -244,7 +245,7 @@
 
     .hero-text{
       margin:0;
-      font-size:19px;
+      font-size:18px;
       line-height:1.45;
       font-weight:900;
       letter-spacing:-.025em;
@@ -275,7 +276,7 @@
 
     .screen-title{
       margin:0;
-      font-size:22px;
+      font-size:21px;
       line-height:1.3;
       font-weight:900;
       letter-spacing:-.02em;
@@ -390,7 +391,7 @@
     .check-area{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px;
+      gap:10px;
       flex:0 0 auto;
     }
 
@@ -398,7 +399,7 @@
       display:flex;
       gap:10px;
       align-items:flex-start;
-      padding:15px 16px;
+      padding:14px 15px;
       border:1px solid var(--line);
       border-radius:16px;
       background:#fbfcfd;
@@ -453,7 +454,7 @@
     .pane-footer{
       flex:0 0 auto;
       border-top:1px solid #e9eef4;
-      padding:16px 34px;
+      padding:14px 28px;
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
@@ -490,7 +491,7 @@
     .form-grid{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px;
+      gap:10px;
       flex:0 0 auto;
       align-content:start;
     }
@@ -515,7 +516,7 @@
       border:1px solid #dbe3ee;
       border-radius:14px;
       background:#fff;
-      padding:12px 14px;
+      padding:11px 13px;
       outline:none;
       transition:border-color .18s ease, box-shadow .18s ease;
       color:#111827;
@@ -527,7 +528,7 @@
     }
 
     .textarea{
-      min-height:120px;
+      min-height:110px;
       resize:vertical;
     }
 
@@ -550,22 +551,22 @@
     .pack-select-grid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:16px;
+      gap:14px;
       align-items:stretch;
     }
 
     .pack-option{
       border:1px solid #dfe7f1;
-      border-radius:20px;
+      border-radius:18px;
       background:#fff;
       overflow:hidden;
       cursor:pointer;
       transition:.18s ease;
-      display:grid;
-      grid-template-rows:220px auto 1fr;
-      min-height:100%;
+      display:flex;
+      flex-direction:column;
       box-shadow:0 4px 14px rgba(15,23,42,.04);
       position:relative;
+      min-height:0;
     }
 
     .pack-option:hover{
@@ -587,13 +588,13 @@
 
     .pack-thumb-wrap{
       position:relative;
-      padding:14px 14px 0;
+      padding:12px 12px 0;
     }
 
     .pack-badge{
       position:absolute;
-      top:22px;
-      right:22px;
+      top:18px;
+      right:18px;
       width:22px;
       height:22px;
       border-radius:50%;
@@ -610,8 +611,8 @@
 
     .pack-thumb{
       width:100%;
-      height:100%;
-      border-radius:16px;
+      height:190px;
+      border-radius:14px;
       overflow:hidden;
       background:#fff;
       border:1px solid #e5e7eb;
@@ -625,32 +626,48 @@
 
     .pack-title{
       margin:0;
-      padding:12px 14px 4px;
+      padding:12px 12px 14px;
       text-align:center;
       font-size:16px;
       font-weight:900;
       line-height:1.3;
+      word-break:keep-all;
     }
 
-    .pack-desc{
+    .pack-desc-panel{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:8px;
+      margin-top:2px;
+    }
+
+    .pack-desc-box{
+      border:1px solid var(--line);
+      background:var(--soft);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .pack-desc-head{
+      margin:0 0 6px;
+      font-size:14px;
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .pack-desc-text{
       margin:0;
-      padding:0 14px 16px;
-      font-size:13px;
-      color:#4b5563;
-      line-height:1.6;
-      text-align:left;
+      font-size:14px;
+      line-height:1.65;
+      color:#475569;
       white-space:pre-line;
       word-break:keep-all;
-      display:-webkit-box;
-      -webkit-line-clamp:3;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
     }
 
     .loading{padding:40px 20px;color:var(--muted);font-size:14px}
     .error{
-      margin-top:12px;
-      padding:16px;
+      margin-top:10px;
+      padding:14px 16px;
       border-radius:16px;
       background:var(--danger-bg);
       border:1px solid var(--danger-line);
@@ -765,7 +782,7 @@
       .pane-title{font-size:24px}
       .hero-text{font-size:18px}
       .form-grid,.check-area,.pack-select-grid{grid-template-columns:1fr}
-      .pack-option{grid-template-rows:220px auto 1fr}
+      .pack-thumb{height:210px}
       .pane-footer{
         flex-direction:column;
         align-items:stretch;
@@ -1169,7 +1186,8 @@
       paneContent.innerHTML = '';
       const card = document.createElement('div');
       card.className = 'screen-card';
-      card.innerHTML = inquiryStep === 0 ? renderInquiryStep1()
+      card.innerHTML =
+        inquiryStep === 0 ? renderInquiryStep1()
         : inquiryStep === 1 ? renderInquiryStep2()
         : renderInquiryStep3();
 
@@ -1269,9 +1287,11 @@
             </div>
           </div>
           <h4 class="pack-title">${escapeHtml(info.title)}</h4>
-          <p class="pack-desc">${escapeHtml(info.desc)}</p>
         </label>
       `).join('');
+
+      const selected = collectInquiryDraft().packType || '';
+      const selectedInfo = CONFIG.PACK_OPTIONS[selected];
 
       return `
         <div class="hero-box">
@@ -1281,6 +1301,13 @@
         <div class="screen-body">
           <div class="pack-select-grid">
             ${options}
+          </div>
+
+          <div class="pack-desc-panel">
+            <div class="pack-desc-box" id="packDescBox">
+              <p class="pack-desc-head">${selectedInfo ? escapeHtml(selectedInfo.title) : '포장 방법 설명'}</p>
+              <p class="pack-desc-text">${selectedInfo ? escapeHtml(selectedInfo.desc) : '위 포장 방법 중 하나를 선택하면 설명이 표시됩니다.'}</p>
+            </div>
           </div>
 
           <div id="inquiryStepError" class="error hidden"></div>
@@ -1374,10 +1401,12 @@
           const value = label.getAttribute('data-pack-option') || '';
           setPackTypeSelection(value);
           saveState();
+          updatePackDescription();
         });
       });
 
       updatePackSelectionUI();
+      updatePackDescription();
     }
 
     function setPackTypeSelection(value) {
@@ -1393,6 +1422,23 @@
       document.querySelectorAll('[data-pack-option]').forEach(card => {
         card.classList.toggle('selected', card.getAttribute('data-pack-option') === selected);
       });
+    }
+
+    function updatePackDescription() {
+      const selected = collectInquiryDraft().packType || '';
+      const box = document.getElementById('packDescBox');
+      if (!box) return;
+
+      const info = CONFIG.PACK_OPTIONS[selected];
+      box.innerHTML = info
+        ? `
+          <p class="pack-desc-head">${escapeHtml(info.title)}</p>
+          <p class="pack-desc-text">${escapeHtml(info.desc)}</p>
+        `
+        : `
+          <p class="pack-desc-head">포장 방법 설명</p>
+          <p class="pack-desc-text">위 포장 방법 중 하나를 선택하면 설명이 표시됩니다.</p>
+        `;
     }
 
     function toggleEventFields() {
@@ -1453,6 +1499,7 @@
 
       toggleEventFields();
       updatePackSelectionUI();
+      updatePackDescription();
     }
 
     function showInquiryError(message) {
