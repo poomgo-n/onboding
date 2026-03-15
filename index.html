@@ -1132,65 +1132,64 @@
       nextBtn.disabled = (currentIndex === maxUnlocked && currentItemIndex === step.items.length - 1);
     }
 
-   function renderDetail(item) {
+    function renderDetail(item) {
+      const title = `<h3 class="detail-title">${escapeHtml(item.title || '')}</h3>`;
 
-  const title = `<h3 class="detail-title">${escapeHtml(item.title || '')}</h3>`;
+      const body = item.bodyHtml
+        ? `<div class="detail-body">${wrapTables(convertEscapedNewlines_(item.bodyHtml))}</div>`
+        : '';
 
-  const body = item.bodyHtml
-    ? `<div class="detail-body">${wrapTables(convertEscapedNewlines_(item.bodyHtml))}</div>`
-    : '';
+      const note = item.noteHtml
+        ? `<div class="subnote">${convertEscapedNewlines_(item.noteHtml)}</div>`
+        : '';
 
-  const note = item.noteHtml
-    ? `<div class="subnote">${convertEscapedNewlines_(item.noteHtml)}</div>`
-    : '';
+      const warn = item.warnHtml
+        ? `<div class="warn"><strong>주의</strong>${convertEscapedNewlines_(item.warnHtml)}</div>`
+        : '';
 
-  const warn = item.warnHtml
-    ? `<div class="warn"><strong>주의</strong>${convertEscapedNewlines_(item.warnHtml)}</div>`
-    : '';
+      const imageUrl = normalizeImageUrl_(item.imageUrl);
 
-  const imageUrl = normalizeImageUrl_(item.imageUrl);
+      const image = imageUrl
+        ? `<div class="render-image">
+            <img src="${escapeAttr(imageUrl)}" alt="${escapeAttr(item.title || '')}">
+            ${item.imageCaption
+              ? `<div class="render-caption">${escapeHtml(item.imageCaption).replaceAll('\\n','\n')}</div>`
+              : ''}
+           </div>`
+        : '';
 
-  const image = imageUrl
-    ? `<div class="render-image">
-        <img src="${escapeAttr(imageUrl)}" alt="${escapeAttr(item.title || '')}">
-        ${item.imageCaption
-          ? `<div class="render-caption">${escapeHtml(item.imageCaption).replaceAll('\\n','\n')}</div>`
-          : ''}
-       </div>`
-    : '';
+      const button = item.linkUrl
+        ? `<div style="margin-top:16px;">
+            <a class="btn primary"
+               href="${escapeAttr(item.linkUrl)}"
+               target="_blank"
+               rel="noopener noreferrer">
+               ${escapeHtml(item.linkText || '바로가기')}
+            </a>
+           </div>`
+        : '';
 
-  const button = item.linkUrl
-    ? `<div style="margin-top:16px;">
-        <a class="btn primary"
-           href="${escapeAttr(item.linkUrl)}"
-           target="_blank"
-           rel="noopener noreferrer">
-           ${escapeHtml(item.linkText || '바로가기')}
-        </a>
-       </div>`
-    : '';
+      if (item.type === 'path') {
+        return `
+          ${title}
+          <div class="subnote">
+            ${escapeHtml(stripHtml(item.bodyHtml || '')).replaceAll('>', '→').replaceAll('\\n', '\n')}
+          </div>
+          ${note}
+          ${warn}
+          ${button}
+        `;
+      }
 
-  if (item.type === 'path') {
-    return `
-      ${title}
-      <div class="subnote">
-        ${escapeHtml(stripHtml(item.bodyHtml || '')).replaceAll('>', '→').replaceAll('\\n', '\n')}
-      </div>
-      ${note}
-      ${warn}
-      ${button}
-    `;
-  }
-
-  return `
-    ${title}
-    ${body}
-    ${image}
-    ${note}
-    ${warn}
-    ${button}
-  `;
-}
+      return `
+        ${title}
+        ${body}
+        ${image}
+        ${note}
+        ${warn}
+        ${button}
+      `;
+    }
 
     function convertEscapedNewlines_(text) {
       return String(text || '').replace(/\\n/g, '\n');
