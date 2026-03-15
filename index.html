@@ -112,6 +112,7 @@
       display:flex;
       justify-content:center;
       background:#fff;
+      overflow:hidden;
     }
 
     .right-pane{
@@ -123,6 +124,7 @@
       display:flex;
       flex-direction:column;
       background:#fff;
+      overflow:hidden;
     }
 
     .pane-top{
@@ -249,13 +251,26 @@
       white-space:pre-line;
     }
 
+    /* 핵심: 여기만 스크롤 */
     .screen-body{
       min-height:0;
       flex:1 1 auto;
-      overflow:hidden;
+      overflow-y:auto;
+      overflow-x:hidden;
       display:flex;
       flex-direction:column;
       gap:14px;
+      padding-right:4px;
+      scrollbar-width:thin;
+    }
+
+    .screen-body::-webkit-scrollbar{width:8px}
+    .screen-body::-webkit-scrollbar-thumb{
+      background:#d6deea;
+      border-radius:999px;
+    }
+    .screen-body::-webkit-scrollbar-track{
+      background:transparent;
     }
 
     .screen-title{
@@ -476,8 +491,7 @@
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
       gap:16px;
-      flex:1 1 auto;
-      min-height:0;
+      flex:0 0 auto;
       align-content:start;
     }
 
@@ -514,8 +528,7 @@
 
     .textarea{
       min-height:120px;
-      max-height:140px;
-      resize:none;
+      resize:vertical;
     }
 
     .hint{font-size:12px;color:#6b7280;white-space:pre-line}
@@ -543,6 +556,7 @@
       border:1px solid #e5ebf2;
       border-radius:18px;
       background:#fbfcfe;
+      flex:0 0 auto;
     }
 
     .pack-thumb{
@@ -858,7 +872,7 @@
 
         const customerName = String(CLIENT_INFO['고객사명'] || '').trim() || '고객사';
         document.title = `${customerName} | N배송 설치 가이드`;
-        windowTitleText.textContent = `"${customerName}" N배송 설치 가이드`;
+        windowTitleText.textContent = `${customerName} N배송 설치 가이드`;
         windowSubText.textContent = '설치 마법사';
 
         currentGuidePageIndex = Math.min(state.currentGuidePageIndex ?? 0, Math.max(PAGES.length - 1, 0));
@@ -1124,14 +1138,16 @@
       const totalSteps = 3;
       const customerName = String(CLIENT_INFO?.['고객사명'] || '').trim() || '고객사';
 
+      windowTitleText.textContent = `${customerName} 사전 문의`;
+
       setShellTexts({
         badge: `사전 문의 ${inquiryStep + 1}/${totalSteps}`,
-        title: 'N배송 사전 문의',
+        title: 'N배송 세팅 전 아래 사전 문의를 제출해주세요.',
         desc: '안내에 따라 필요한 정보를 순서대로 입력해주세요.',
         stat: `현재 ${inquiryStep + 1}/${totalSteps} 단계 · 앞으로 ${Math.max(totalSteps - inquiryStep - 1, 0)}단계 남음`,
         percent: ((inquiryStep + 1) / totalSteps) * 100,
         footer: `${inquiryStep + 1} / ${totalSteps} 화면`,
-        subText: `"${customerName}" 설치 전 정보 입력`
+        subText: `${customerName} 사전 문의`
       });
 
       paneContent.innerHTML = '';
@@ -1565,6 +1581,7 @@
 
     function renderWaitingScreen() {
       const customerName = String(CLIENT_INFO?.['고객사명'] || '').trim() || '고객사';
+      windowTitleText.textContent = `${customerName} 사전 문의 접수 완료`;
 
       setShellTexts({
         badge: '접수 완료',
@@ -1573,7 +1590,7 @@
         stat: '확인 중',
         percent: 100,
         footer: '대기 중',
-        subText: `"${customerName}" 접수 완료`
+        subText: `${customerName} 접수 완료`
       });
 
       paneContent.innerHTML = `
@@ -1620,6 +1637,9 @@
       const totalSteps = DATA.length;
       const currentStepNo = page.stepIndex + 1;
       const remainingSteps = Math.max(totalSteps - currentStepNo, 0);
+      const customerName = String(CLIENT_INFO?.['고객사명'] || '').trim() || '고객사';
+
+      windowTitleText.textContent = `${customerName} N배송 설치 가이드`;
 
       setShellTexts({
         badge: `STEP ${currentStepNo}`,
@@ -1628,7 +1648,7 @@
         stat: `현재 ${currentStepNo}/${totalSteps} 단계 · 앞으로 ${remainingSteps}단계 남음`,
         percent: ((currentGuidePageIndex + 1) / totalPages) * 100,
         footer: `${currentGuidePageIndex + 1} / ${totalPages} 화면`,
-        subText: `"${String(CLIENT_INFO?.['고객사명'] || '').trim() || '고객사'}" 설치 진행 중`
+        subText: `${customerName} 설치 진행 중`
       });
 
       paneContent.innerHTML = `
