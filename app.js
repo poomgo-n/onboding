@@ -694,30 +694,55 @@ function renderPackCard(value, title, desc, selectedValue) {
   const selected = value === selectedValue ? 'selected' : '';
 
   let figureHtml = '';
+
   if (value === '기본 포장') {
     figureHtml = `
-      <div class="pack-figure">
-        <div class="item-top"></div>
-        <div class="box-main">
-          <div class="small-box sb1"></div>
-          <div class="small-box sb2"></div>
-          <div class="small-box sb3"></div>
-        </div>
-        <div class="item-bottom"></div>
+      <div class="pack-figure realistic-box">
+        <div class="pkg-flap top"></div>
+        <div class="pkg-flap left"></div>
+        <div class="pkg-flap right"></div>
+        <div class="pkg-flap bottom"></div>
+
+        <div class="pkg-floor"></div>
+        <div class="pkg-side-shadow left"></div>
+        <div class="pkg-side-shadow right"></div>
+
+        <div class="pkg-inner-cushion"></div>
+
+        <div class="pkg-product can basic"></div>
       </div>
     `;
   } else if (value === '에어캡 포장') {
     figureHtml = `
-      <div class="pack-figure">
-        <div class="bubble"></div>
-        <div class="wrap-item"></div>
+      <div class="pack-figure realistic-box">
+        <div class="pkg-flap top"></div>
+        <div class="pkg-flap left"></div>
+        <div class="pkg-flap right"></div>
+        <div class="pkg-flap bottom"></div>
+
+        <div class="pkg-floor"></div>
+        <div class="pkg-side-shadow left"></div>
+        <div class="pkg-side-shadow right"></div>
+
+        <div class="pkg-product can wrapped"></div>
+        <div class="pkg-bubble-wrap around-product"></div>
       </div>
     `;
-  } else {
+  } else if (value === '버블페이퍼 포장') {
     figureHtml = `
-      <div class="pack-figure">
-        <div class="paper"></div>
-        <div class="paper-item"></div>
+      <div class="pack-figure realistic-box">
+        <div class="pkg-flap top"></div>
+        <div class="pkg-flap left"></div>
+        <div class="pkg-flap right"></div>
+        <div class="pkg-flap bottom"></div>
+
+        <div class="pkg-floor"></div>
+        <div class="pkg-side-shadow left"></div>
+        <div class="pkg-side-shadow right"></div>
+
+        <div class="pkg-product bottle honey"></div>
+        <div class="pkg-bottle-cap"></div>
+        <div class="pkg-honeycomb-wrap"></div>
       </div>
     `;
   }
