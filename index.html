@@ -19,7 +19,7 @@
     <div class="modal-panel">
       <div class="modal-head">
         <h3>입력 내용 확인</h3>
-        <button id="closeSummaryBtn" class="icon-btn" type="button">✕</button>
+        <button id="closeSummaryBtn" class="icon-btn" type="button" aria-label="닫기">✕</button>
       </div>
       <div id="summaryContent" class="summary-content"></div>
       <div class="modal-actions">
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div id="toast" class="toast hidden"></div>
+  <div id="toast" class="toast hidden" aria-live="polite"></div>
 
   <script src="./app.js"></script>
 </body>
