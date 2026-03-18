@@ -370,6 +370,8 @@ function renderGuide() {
 
   bindWizardNav();
   bindHelpDrawer();
+  bindFaqToggle();
+  initManualSteps(app);
   scheduleHtmlStageFit();
 }
 
