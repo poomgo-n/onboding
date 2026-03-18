@@ -409,6 +409,64 @@ function renderWizardProgress(currentStep) {
   `;
 }
 
+function initManualSteps(scope) {
+  const roots = (scope || document).querySelectorAll('.poomgo-step1-wrap');
+
+  roots.forEach((root) => {
+    if (!root || root.dataset.manualInitialized === 'true') return;
+    root.dataset.manualInitialized = 'true';
+
+    let current = 1;
+    const views = Array.from(root.querySelectorAll('.manual-step-view'));
+    const stepBtns = Array.from(root.querySelectorAll('[data-manual-step]'));
+    const prevBtns = Array.from(root.querySelectorAll('[data-manual-prev]'));
+    const nextBtns = Array.from(root.querySelectorAll('[data-manual-next]'));
+    const max = views.length || 1;
+
+    function render(step) {
+      current = Math.max(1, Math.min(step, max));
+
+      views.forEach((view) => {
+        const isActive = Number(view.dataset.stepView) === current;
+        view.style.display = isActive ? 'flex' : 'none';
+      });
+
+      stepBtns.forEach((btn) => {
+        const isActive = Number(btn.dataset.manualStep) === current;
+        btn.classList.toggle('active', isActive);
+      });
+
+      prevBtns.forEach((btn) => {
+        btn.disabled = current === 1;
+      });
+
+      nextBtns.forEach((btn) => {
+        btn.disabled = current === max;
+      });
+    }
+
+    stepBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        render(Number(btn.dataset.manualStep));
+      });
+    });
+
+    prevBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        render(current - 1);
+      });
+    });
+
+    nextBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        render(current + 1);
+      });
+    });
+
+    render(1);
+  });
+}
+
 function renderWizardBody(stepNo) {
   const stepKey = `step${stepNo}`;
   const items = state.steps[stepKey] || [];
