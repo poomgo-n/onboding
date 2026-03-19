@@ -41,13 +41,13 @@
     </div>
 
     <div style="min-width:0;">
-<div class="manual-viewer" style="position:relative; width:100%; height:620px; background:#f1f5f9; border-radius:16px; overflow:hidden; border:1px solid #d1d5db;">
+      <div class="manual-viewer" style="position:relative; width:100%; height:620px; background:#f1f5f9; border-radius:16px; overflow:hidden; border:1px solid #d1d5db;">
         <button type="button" class="manual-side-btn manual-side-prev" data-manual-prev aria-label="이전">‹</button>
         <button type="button" class="manual-side-btn manual-side-next" data-manual-next aria-label="다음">›</button>
 
         <div class="manual-step-view" data-step-view="1" style="position:absolute; inset:0; background:#fff; display:flex; align-items:flex-start; justify-content:center; overflow:auto; padding:42px 24px 36px;">
           <div style="width:400px; text-align:center; margin:0 auto;">
-            <img src="./logo.png" style="height:26px; margin-bottom:46px;">
+            <img src="./logo.png" alt="logo" style="height:26px; margin-bottom:46px;">
 
             <div style="height:54px; border:1px solid #ced4da; border-radius:6px; margin-bottom:14px; background:#f9fafb; display:flex; align-items:center; padding:0 16px; color:#9ca3af; font-size:15px; text-align:left;">
               이메일
@@ -77,7 +77,7 @@
         <div class="manual-step-view" data-step-view="2" style="position:absolute; inset:0; background:#f6f8fc; display:none; flex-direction:column; overflow:auto;">
           <div style="height:64px; min-height:64px; background:#fff; display:flex; align-items:center; padding:0 20px; border-bottom:1px solid #e0e0e0;">
             <div style="color:#5f6368; font-size:24px; margin-right:20px;">☰</div>
-            <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" style="height:24px; margin-right:40px;">
+            <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r5.png" alt="gmail" style="height:24px; margin-right:40px;">
             <div style="flex:1; max-width:720px; height:48px; background:#f1f3f4; border-radius:8px; display:flex; align-items:center; padding:0 15px; color:#5f6368;">메일 검색</div>
           </div>
 
@@ -95,7 +95,7 @@
               <div style="flex:1; background:#f8f9fa; padding:28px; overflow-y:auto;">
                 <div style="max-width:550px; margin:0 auto; background:#fff; padding:40px; border-radius:4px; box-shadow:0 1px 3px rgba(0,0,0,0.1);">
                   <div style="text-align:left; margin-bottom:35px;">
-                    <img src="./logo.png" style="height:22px;">
+                    <img src="./logo.png" alt="logo" style="height:22px;">
                   </div>
 
                   <p style="font-size:16px; margin:0 0 5px 0; color:#111827;">아래의 버튼을 눌러</p>
@@ -114,7 +114,7 @@
 
         <div class="manual-step-view" data-step-view="3" style="position:absolute; inset:0; background:#fff; display:none; align-items:flex-start; justify-content:center; overflow:auto; padding:34px 24px 36px;">
           <div style="width:400px; text-align:center; margin:0 auto;">
-            <img src="./logo.png" style="height:22px; margin-bottom:28px;">
+            <img src="./logo.png" alt="logo" style="height:22px; margin-bottom:28px;">
             <div style="font-size:19px; font-weight:800; margin-bottom:12px; color:#000;">비밀번호 변경</div>
             <div style="font-size:14px; color:#0040d1; font-weight:700; margin-bottom:6px;">poomgo@dohands.com 계정의</div>
             <div style="font-size:14px; font-weight:700; margin-bottom:12px; color:#111827;">새로운 비밀번호를 입력해주세요.</div>
@@ -135,42 +135,37 @@
           </div>
         </div>
       </div>
+    </div>
+
+  </div>
 
   <style>
-.poomgo-step1-wrap .manual-click-pulse{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:28px;
-  height:28px;
-  border-radius:999px;
-  transform:translate(-50%,-50%) scale(.9);
-  background:rgba(0,64,209,.22);
-  border:3px solid rgba(0,64,209,.82);
-  box-shadow:0 0 0 12px rgba(0,64,209,.08), 0 0 0 24px rgba(0,64,209,.04);
-  pointer-events:none;
-  animation:manualPulse 1.6s infinite ease-out;
-}
+    .poomgo-step1-wrap .manual-click-pulse{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      transform:translate(-50%,-50%) scale(.9);
+      background:rgba(0,64,209,.22);
+      border:3px solid rgba(0,64,209,.82);
+      box-shadow:0 0 0 12px rgba(0,64,209,.08), 0 0 0 24px rgba(0,64,209,.04);
+      pointer-events:none;
+      animation:manualPulse 1.6s infinite ease-out;
+    }
 
-/* STEP 2: 회색/밝은 배경에서 더 잘 보이게 */
-.poomgo-step1-wrap [data-step-view="3"] .manual-click-pulse{
-  background:rgba(220,38,38,.22);
-  border:3px solid rgba(220,38,38,.88);
-  box-shadow:0 0 0 12px rgba(220,38,38,.10), 0 0 0 24px rgba(220,38,38,.05);
-}
+    .poomgo-step1-wrap [data-step-view="3"] .manual-click-pulse{
+      background:rgba(220,38,38,.22);
+      border:3px solid rgba(220,38,38,.88);
+      box-shadow:0 0 0 12px rgba(220,38,38,.10), 0 0 0 24px rgba(220,38,38,.05);
+    }
 
-/* STEP 3: 흰 배경에서 강조되게 */
-.poomgo-step1-wrap [data-step-view="3"] .manual-click-pulse{
-  background:rgba(220,38,38,.22);
-  border:3px solid rgba(220,38,38,.88);
-  box-shadow:0 0 0 12px rgba(220,38,38,.10), 0 0 0 24px rgba(220,38,38,.05);
-}
-
-@keyframes manualPulse {
-  0% { transform:translate(-50%,-50%) scale(.72); opacity:.95; }
-  70% { transform:translate(-50%,-50%) scale(1.18); opacity:.35; }
-  100% { transform:translate(-50%,-50%) scale(1.28); opacity:.08; }
-}
+    @keyframes manualPulse {
+      0% { transform:translate(-50%,-50%) scale(.72); opacity:.95; }
+      70% { transform:translate(-50%,-50%) scale(1.18); opacity:.35; }
+      100% { transform:translate(-50%,-50%) scale(1.28); opacity:.08; }
+    }
 
     .poomgo-step1-wrap .manual-nav-btn,
     .poomgo-step1-wrap .manual-step-btn{
