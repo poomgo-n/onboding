@@ -1050,3 +1050,24 @@ textarea{
     line-height:1.9;
   }
 }
+
+.wizard-substep-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-left:10px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#f3f4f6;
+  color:#374151;
+  font-size:12px;
+  font-weight:800;
+  vertical-align:middle;
+}
+
+.wizard-substep-guide{
+  margin:0 0 12px;
+  font-size:13px;
+  font-weight:800;
+  color:#6b7280;
+}
