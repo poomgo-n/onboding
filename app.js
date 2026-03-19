@@ -457,6 +457,7 @@ function renderGuide() {
   bindFaqToggle();
   hydrateCurrentStepHtml();
   scheduleHtmlStageFit();
+  bindImageZoom();
 }
 
 function renderWizardHeader(stepNo, stepTitle) {
@@ -1364,4 +1365,49 @@ function escapeHtml(str = '') {
 
 function escapeAttr(str = '') {
   return escapeHtml(str);
+}
+
+function bindImageZoom() {
+  const container = document.getElementById('guideHtmlMount');
+  if (!container) return;
+
+  const images = container.querySelectorAll('img');
+
+  images.forEach(img => {
+    img.style.cursor = 'zoom-in';
+
+    img.addEventListener('click', () => {
+      openImageZoom(img.src);
+    });
+  });
+}
+
+function openImageZoom(src) {
+  let modal = document.getElementById('imageZoomModal');
+
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'imageZoomModal';
+    modal.innerHTML = `
+      <div class="image-zoom-backdrop"></div>
+      <div class="image-zoom-content">
+        <img id="imageZoomTarget" src="" />
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.querySelector('.image-zoom-backdrop').addEventListener('click', closeImageZoom);
+    modal.addEventListener('click', closeImageZoom);
+  }
+
+  const target = modal.querySelector('#imageZoomTarget');
+  target.src = src;
+
+  modal.classList.add('active');
+}
+
+function closeImageZoom() {
+  const modal = document.getElementById('imageZoomModal');
+  if (!modal) return;
+  modal.classList.remove('active');
 }
