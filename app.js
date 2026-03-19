@@ -32,6 +32,7 @@ const PACKAGING_IMAGE_LINKS = {
 
 document.addEventListener('DOMContentLoaded', init);
 window.addEventListener('resize', scheduleHtmlStageFit);
+document.addEventListener('keydown', handleGlobalKeydown);
 
 async function init() {
   try {
@@ -87,7 +88,7 @@ function buildGithubStepMap() {
     ],
     step2: [
       {
-        title: '풀필먼트 연 (1/2)',
+        title: '판매처 등록 (1/2)',
         desc: '판매처 등록 1단계를 진행해주세요.',
         mediaType: 'html',
         mediaValue: './steps/step2-1.html',
@@ -450,14 +451,26 @@ function renderGuide() {
         </div>
       </div>
     </div>
+
+    <div id="stepWaitModal" class="step-wait-modal hidden">
+      <div class="step-wait-backdrop"></div>
+      <div class="step-wait-panel">
+        <div class="step-wait-emoji">🙏</div>
+        <div class="step-wait-title">품고에서 확인 후 다음 STEP 가이드를 오픈해드릴게요!</div>
+        <div class="step-wait-desc">조금만 기다려주세요🙏</div>
+        <div class="step-wait-actions">
+          <button type="button" class="btn btn-primary" id="closeStepWaitModalBtn">확인</button>
+        </div>
+      </div>
+    </div>
   `;
 
   bindWizardNav();
   bindHelpDrawer();
   bindFaqToggle();
+  bindStepWaitModal();
   hydrateCurrentStepHtml();
   scheduleHtmlStageFit();
-  bindImageZoom();
 }
 
 function renderWizardHeader(stepNo, stepTitle) {
@@ -634,6 +647,7 @@ async function hydrateCurrentStepHtml() {
 
     initManualSteps(mount);
     bindInjectedHtmlInteractions(mount);
+    bindImageZoom(mount);
     scheduleHtmlStageFit();
   } catch (err) {
     console.error(err);
@@ -715,6 +729,68 @@ function updateManualViewer(viewer, step) {
   });
 }
 
+function bindImageZoom(scope) {
+  const container = scope || document.getElementById('guideHtmlMount');
+  if (!container) return;
+
+  const images = container.querySelectorAll('img');
+  images.forEach((img) => {
+    if (img.dataset.zoomBound === 'true') return;
+    img.dataset.zoomBound = 'true';
+    img.style.cursor = 'zoom-in';
+
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openImageZoom(img.src, img.alt || '');
+    });
+  });
+}
+
+function ensureImageZoomModal() {
+  let modal = document.getElementById('imageZoomModal');
+  if (modal) return modal;
+
+  modal = document.createElement('div');
+  modal.id = 'imageZoomModal';
+  modal.className = 'image-zoom-modal hidden';
+  modal.innerHTML = `
+    <div class="image-zoom-backdrop"></div>
+    <div class="image-zoom-shell">
+      <button type="button" class="image-zoom-close" aria-label="닫기">✕</button>
+      <img id="imageZoomTarget" class="image-zoom-target" src="" alt="">
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector('.image-zoom-backdrop').addEventListener('click', closeImageZoom);
+  modal.querySelector('.image-zoom-close').addEventListener('click', closeImageZoom);
+
+  return modal;
+}
+
+function openImageZoom(src, alt = '') {
+  const modal = ensureImageZoomModal();
+  const target = modal.querySelector('#imageZoomTarget');
+  target.src = src;
+  target.alt = alt;
+  modal.classList.remove('hidden');
+  modal.classList.add('active');
+}
+
+function closeImageZoom() {
+  const modal = document.getElementById('imageZoomModal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.classList.remove('active');
+}
+
+function handleGlobalKeydown(e) {
+  if (e.key === 'Escape') {
+    closeImageZoom();
+    closeStepWaitModal();
+  }
+}
+
 function renderStepMedia(item) {
   const mediaType = (item.mediaType || '').toLowerCase();
   const mediaValue = item.mediaValue || '';
@@ -743,7 +819,6 @@ function renderStepMedia(item) {
 
 function normalizeStepHtml(html = '') {
   let s = String(html || '');
-
   s = s.replace(/height\s*:\s*720px/gi, 'height:100%');
   s = s.replace(/height\s*:\s*760px/gi, 'height:100%');
   s = s.replace(/height\s*:\s*800px/gi, 'height:100%');
@@ -751,7 +826,6 @@ function normalizeStepHtml(html = '') {
   s = s.replace(/white-space\s*:\s*nowrap\s*;?/gi, '');
   s = s.replace(/max-width\s*:\s*1120px/gi, 'max-width:none');
   s = s.replace(/max-width\s*:\s*1200px/gi, 'max-width:none');
-
   return s;
 }
 
@@ -798,7 +872,6 @@ function bindWizardNav() {
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      // STEP3 내부 뒤로
       if (state.currentStep === 3 && state.currentSubStep === 3) {
         state.currentSubStep = 2;
         saveGuideProgress();
@@ -813,7 +886,6 @@ function bindWizardNav() {
         return;
       }
 
-      // STEP2 내부 뒤로
       if (state.currentStep === 2 && state.currentSubStep === 2) {
         state.currentSubStep = 1;
         saveGuideProgress();
@@ -840,7 +912,6 @@ function bindWizardNav() {
 
   if (nextBtn) {
     nextBtn.addEventListener('click', async () => {
-      // STEP2 내부 이동
       if (state.currentStep === 2 && state.currentSubStep === 1) {
         state.currentSubStep = 2;
         saveGuideProgress();
@@ -848,7 +919,6 @@ function bindWizardNav() {
         return;
       }
 
-      // STEP2-2 완료
       if (state.currentStep === 2 && state.currentSubStep === 2) {
         if (isStepOpen(3)) {
           state.currentStep = 3;
@@ -872,7 +942,6 @@ function bindWizardNav() {
         return;
       }
 
-      // STEP3 내부 이동
       if (state.currentStep === 3 && state.currentSubStep === 1) {
         state.currentSubStep = 2;
         saveGuideProgress();
@@ -887,7 +956,6 @@ function bindWizardNav() {
         return;
       }
 
-      // STEP3-3 완료
       if (state.currentStep === 3 && state.currentSubStep === 3) {
         if (isStepOpen(4)) {
           state.currentStep = 4;
@@ -953,6 +1021,32 @@ function bindHelpDrawer() {
   if (helpBtn) helpBtn.addEventListener('click', openDrawer);
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (backdrop) backdrop.addEventListener('click', closeDrawer);
+}
+
+function openStepWaitModal() {
+  const modal = document.getElementById('stepWaitModal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+}
+
+function closeStepWaitModal() {
+  const modal = document.getElementById('stepWaitModal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+}
+
+function bindStepWaitModal() {
+  const modal = document.getElementById('stepWaitModal');
+  const closeBtn = document.getElementById('closeStepWaitModalBtn');
+  const backdrop = modal?.querySelector('.step-wait-backdrop');
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeStepWaitModal);
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeStepWaitModal);
+  }
 }
 
 function scheduleHtmlStageFit() {
@@ -1365,49 +1459,4 @@ function escapeHtml(str = '') {
 
 function escapeAttr(str = '') {
   return escapeHtml(str);
-}
-
-function bindImageZoom() {
-  const container = document.getElementById('guideHtmlMount');
-  if (!container) return;
-
-  const images = container.querySelectorAll('img');
-
-  images.forEach(img => {
-    img.style.cursor = 'zoom-in';
-
-    img.addEventListener('click', () => {
-      openImageZoom(img.src);
-    });
-  });
-}
-
-function openImageZoom(src) {
-  let modal = document.getElementById('imageZoomModal');
-
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'imageZoomModal';
-    modal.innerHTML = `
-      <div class="image-zoom-backdrop"></div>
-      <div class="image-zoom-content">
-        <img id="imageZoomTarget" src="" />
-      </div>
-    `;
-    document.body.appendChild(modal);
-
-    modal.querySelector('.image-zoom-backdrop').addEventListener('click', closeImageZoom);
-    modal.addEventListener('click', closeImageZoom);
-  }
-
-  const target = modal.querySelector('#imageZoomTarget');
-  target.src = src;
-
-  modal.classList.add('active');
-}
-
-function closeImageZoom() {
-  const modal = document.getElementById('imageZoomModal');
-  if (!modal) return;
-  modal.classList.remove('active');
 }
