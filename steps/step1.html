@@ -41,7 +41,7 @@
     </div>
 
     <div style="min-width:0;">
-      <div class="manual-viewer" style="position:relative; width:100%; height:620px; background:#f1f5f9; border-radius:16px; overflow:hidden; border:1px solid #d1d5db;">
+      <div class="manual-viewer" data-current-manual-step="1" style="position:relative; width:100%; height:620px; background:#f1f5f9; border-radius:16px; overflow:hidden; border:1px solid #d1d5db;">
         <button type="button" class="manual-side-btn manual-side-prev" data-manual-prev aria-label="이전">‹</button>
         <button type="button" class="manual-side-btn manual-side-next" data-manual-next aria-label="다음">›</button>
 
@@ -55,7 +55,7 @@
 
             <div style="height:54px; border:1px solid #ced4da; border-radius:6px; margin-bottom:16px; background:#f9fafb; display:flex; align-items:center; justify-content:space-between; padding:0 16px; color:#9ca3af; font-size:15px;">
               <span>비밀번호</span>
-              <span style="letter-spacing:2px;"></span>
+              <span style="letter-spacing:2px;">••••••••</span>
             </div>
 
             <div style="display:flex; align-items:center; gap:8px; font-size:14px; color:#111827; font-weight:700; margin-bottom:20px; text-align:left;">
@@ -123,10 +123,10 @@
             </div>
 
             <div style="text-align:left; font-size:12px; font-weight:700; margin-bottom:6px; color:#111827;">새 비밀번호</div>
-            <div style="height:44px; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:16px; background:#f8fafc; display:flex; align-items:center; padding:0 12px; color:#9ca3af; letter-spacing:3px;"></div>
+            <div style="height:44px; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:16px; background:#f8fafc; display:flex; align-items:center; padding:0 12px; color:#9ca3af; letter-spacing:3px;">••••••••••</div>
 
             <div style="text-align:left; font-size:12px; font-weight:700; margin-bottom:6px; color:#111827;">새 비밀번호 확인</div>
-            <div style="height:44px; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:25px; background:#f8fafc; display:flex; align-items:center; padding:0 12px; color:#9ca3af; letter-spacing:3px;"></div>
+            <div style="height:44px; border:1px solid #e2e8f0; border-radius:8px; margin-bottom:25px; background:#f8fafc; display:flex; align-items:center; padding:0 12px; color:#9ca3af; letter-spacing:3px;">••••••••••</div>
 
             <div style="height:52px; background:#0040d1; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; position:relative; box-shadow:0 10px 22px rgba(0,64,209,0.18);">
               비밀번호 변경
@@ -167,32 +167,11 @@
       100% { transform:translate(-50%,-50%) scale(1.28); opacity:.08; }
     }
 
-    .poomgo-step1-wrap .manual-nav-btn,
-    .poomgo-step1-wrap .manual-step-btn{
-      border:none;
-      background:#fff;
-      border:1px solid #d1d5db;
-      color:#111827;
-      height:40px;
-      min-width:40px;
-      padding:0 16px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    .poomgo-step1-wrap .manual-step-btn.active{
-      background:#111827;
-      color:#fff;
-      border-color:#111827;
-    }
-
     .poomgo-step1-wrap .manual-side-btn{
       position:absolute;
       top:50%;
       transform:translateY(-50%);
-      z-index:20;
+      z-index:30;
       width:42px;
       height:42px;
       border:none;
@@ -206,12 +185,12 @@
       justify-content:center;
       cursor:pointer;
       box-shadow:0 8px 20px rgba(0,0,0,.16);
+      user-select:none;
     }
 
     .poomgo-step1-wrap .manual-side-prev{ left:14px; }
     .poomgo-step1-wrap .manual-side-next{ right:14px; }
 
-    .poomgo-step1-wrap .manual-nav-btn:disabled,
     .poomgo-step1-wrap .manual-side-btn:disabled{
       opacity:.45;
       cursor:not-allowed;
@@ -221,6 +200,10 @@
       .poomgo-step1-wrap > div{
         grid-template-columns:1fr !important;
         gap:20px !important;
+      }
+
+      .poomgo-step1-wrap .manual-viewer{
+        height:520px !important;
       }
     }
   </style>
